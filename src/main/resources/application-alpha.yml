@@ -9,19 +9,16 @@ logging:
 spring:
   profiles: alpha
   datasource:
-    url: jdbc:mysql://127.0.0.1:33060/daddyprogrammer?useUnicode=true&autoReconnect=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: happydaddy
-    password: daddy!@#1004
+    url: jdbc:mysql://127.0.0.1:3306/david3?useTimezone=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: david3
+    password: jesus
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties.hibernate:
-      hbm2ddl.auto: none
+      hbm2ddl.auto: update
       format_sql: true
     showSql: true
-    generate-ddl: false
+    generate-ddl: true
   url:
     base: http://dev-api.daddyprogrammer.org
-  redis:
-    host: Standalone Redis 호스트
-    port: Standalone Redis 포트

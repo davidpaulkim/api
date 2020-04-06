@@ -13,9 +13,15 @@ public class CacheSevice {
     @Caching(evict = {
             @CacheEvict(value = CacheKey.POST, key = "#postId"),
             @CacheEvict(value = CacheKey.POSTS, key = "#boardName")
+//            @CacheEvict(value = CacheKey.ROLE, key = "#roleId"),
+//            @CacheEvict(value = CacheKey.ROLES, key = "#roleName")
     })
     public boolean deleteBoardCache(long postId, String boardName) {
         log.debug("deleteBoardCache - postId {}, boardName {}", postId, boardName);
         return true;
     }
+ //   public boolean deleteDeptCache(long roleId, String deptName) {
+  //      log.debug("deleteDeptCache - roleId {}, deptName {}", roleId, deptName);
+  //      return true;
+  // }
 }

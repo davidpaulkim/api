@@ -6,11 +6,12 @@ logging:
 spring:
   profiles: local
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
-    driver-class-name: org.h2.Driver
-    username: sa
+    url: jdbc:mysql://127.0.0.1:3306/david3?useTimezone=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: david3
+    password: jesus
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties.hibernate:
       hbm2ddl.auto: update
       format_sql: true
