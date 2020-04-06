@@ -1,4 +1,4 @@
-package com.rest.api.controller.v1;
+package com.rest.api.controller.api.user;
 
 import com.rest.api.advice.exception.CUserNotFoundException;
 import com.rest.api.entity.User;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = {"2. User"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = "/api")
 // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 @PreAuthorize("hasRole('ROLE_USER')")
 public class UserController {

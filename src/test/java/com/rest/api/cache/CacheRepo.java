@@ -1,6 +1,5 @@
 package com.rest.api.cache;
 
-import com.rest.api.entity.board.Post;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

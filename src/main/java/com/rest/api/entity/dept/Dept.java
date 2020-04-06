@@ -1,6 +1,5 @@
-package com.rest.api.entity.board;
+package com.rest.api.entity.dept;
 
-import com.rest.api.entity.User;
 import com.rest.api.entity.common.CommonDateEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +14,6 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
-
 public class Dept extends CommonDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

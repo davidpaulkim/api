@@ -1,15 +1,13 @@
-package com.rest.api.controller.v1.board;
+package com.rest.api.controller.api.dept;
 
-import com.rest.api.entity.board.Dept;
-import com.rest.api.entity.board.Post;
-import com.rest.api.entity.board.Role;
-import com.rest.api.model.board.ParamsPost;
-import com.rest.api.model.board.ParamsRole;
+import com.rest.api.entity.dept.Dept;
+import com.rest.api.entity.dept.Role;
+import com.rest.api.model.dept.ParamsRole;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
 import com.rest.api.service.ResponseService;
-import com.rest.api.service.board.DeptService;
+import com.rest.api.service.dept.DeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,8 +23,7 @@ import javax.validation.Valid;
 @Api(tags = {"3. Dept"})
 @RequiredArgsConstructor
 @RestController
-@PreAuthorize("hasRole('ROLE_USER')")
-@RequestMapping(value = "/v1/dept")
+@RequestMapping(value = "/api/dept")
 public class DeptController {
 
     private final DeptService deptService;

@@ -1,7 +1,7 @@
-package com.rest.api.repo.board;
+package com.rest.api.repo.dept;
 
-import com.rest.api.entity.board.Dept;
-import com.rest.api.entity.board.Role;
+import com.rest.api.entity.dept.Dept;
+import com.rest.api.entity.dept.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

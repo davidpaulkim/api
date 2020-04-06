@@ -127,7 +127,7 @@ public class SignControllerTest {
     public void signInSocial() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("accessToken", "HizF3ir9522bMW3shkO0x0T9zBdXFCW1WsF56Qo9dVsAAAFqMwTqHw");
-        mockMvc.perform(post("/v1/signin/kakao").params(params))
+        mockMvc.perform(post("/api/signin/kakao").params(params))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))

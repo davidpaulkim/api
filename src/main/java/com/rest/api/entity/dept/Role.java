@@ -1,4 +1,4 @@
-package com.rest.api.entity.board;
+package com.rest.api.entity.dept;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rest.api.entity.User;
@@ -6,6 +6,7 @@ import com.rest.api.entity.common.CommonDateEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,8 +21,6 @@ public class Role extends CommonDateEntity implements Serializable {
     private Long roleId;
     @Column(nullable = false, length = 50)
     private String roleName;
-    @Column(nullable = false, length = 100)
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_id")

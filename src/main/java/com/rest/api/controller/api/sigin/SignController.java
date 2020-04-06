@@ -1,4 +1,4 @@
-package com.rest.api.controller.v1;
+package com.rest.api.controller.api.sigin;
 
 import com.rest.api.advice.exception.CEmailSigninFailedException;
 import com.rest.api.advice.exception.CUserExistException;
@@ -24,7 +24,7 @@ import java.util.Optional;
 @Api(tags = {"1. Sign"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = "/api")
 public class SignController {
 
     private final UserJpaRepo userJpaRepo;

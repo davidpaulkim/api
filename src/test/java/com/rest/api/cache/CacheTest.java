@@ -1,6 +1,5 @@
 package com.rest.api.cache;
 
-import com.rest.api.entity.board.Post;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

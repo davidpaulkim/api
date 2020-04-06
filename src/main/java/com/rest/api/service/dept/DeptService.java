@@ -1,29 +1,23 @@
-package com.rest.api.service.board;
+package com.rest.api.service.dept;
 
 import com.rest.api.advice.exception.CNotOwnerException;
 import com.rest.api.advice.exception.CResourceNotExistException;
 import com.rest.api.advice.exception.CUserNotFoundException;
-import com.rest.api.common.CacheKey;
 import com.rest.api.entity.User;
-import com.rest.api.entity.board.Dept;
-import com.rest.api.entity.board.Post;
-import com.rest.api.entity.board.Role;
-import com.rest.api.model.board.ParamsRole;
+import com.rest.api.entity.dept.Dept;
+import com.rest.api.entity.dept.Role;
+import com.rest.api.model.dept.ParamsRole;
 import com.rest.api.repo.UserJpaRepo;
-import com.rest.api.repo.board.DeptJpaRepo;
-import com.rest.api.repo.board.RoleJpaRepo;
+import com.rest.api.repo.dept.DeptJpaRepo;
+import com.rest.api.repo.dept.RoleJpaRepo;
 import com.rest.api.service.cache.CacheSevice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-
-import static com.rest.api.repo.board.RoleJpaRepo.*;
 
 @Slf4j
 @Service

@@ -1,4 +1,4 @@
-package com.rest.api.model.board;
+package com.rest.api.model.dept;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
