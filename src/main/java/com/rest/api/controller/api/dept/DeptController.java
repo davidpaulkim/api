@@ -32,7 +32,7 @@ public class DeptController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "부서 생성", notes = "신규 부서을 생성한다.")
+    @ApiOperation(value = "부서 생성", notes = "신규 부서를 생성한다.")
     @PostMapping(value = "/{deptName}")
     public SingleResult<Dept> createDept(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.insertDept(deptName));
@@ -47,6 +47,10 @@ public class DeptController {
     public SingleResult<Dept> deptInfo(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.findDept(deptName));
     }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
 
     @ApiOperation(value = "역할 리스트", notes = "역할 리스트를 조회한다.")
     @GetMapping(value = "/{deptName}/roles")
@@ -65,6 +69,9 @@ public class DeptController {
         return responseService.getSingleResult(deptService.writeRole(uid, deptName, role));
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
 
     @ApiOperation(value = "역할 조회", notes = "역할을 조회한다.")
     @GetMapping(value = "/role/{roleId}")
