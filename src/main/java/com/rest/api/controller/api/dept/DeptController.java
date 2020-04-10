@@ -38,6 +38,10 @@ public class DeptController {
         return responseService.getSingleResult(deptService.insertDept(deptName));
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+
     @ApiOperation(value = "부서 정보 조회", notes = "부서 정보를 조회한다.")
     @GetMapping(value = "/{deptName}")
     public SingleResult<Dept> deptInfo(@PathVariable String deptName) {
