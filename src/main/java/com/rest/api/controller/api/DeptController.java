@@ -36,7 +36,7 @@ public class DeptController {
     public SingleResult<Dept> deptCreate(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.insertDept(deptName));
     }
-
+/*
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
@@ -45,7 +45,7 @@ public class DeptController {
     @GetMapping(value = "/{uid}")
     public ListResult<Dept> deptsGet(@PathVariable String uid) {
         return responseService.getListResult(deptService.findDepts(uid));
-    }
+    }*/
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")

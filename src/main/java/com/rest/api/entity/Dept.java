@@ -21,7 +21,7 @@ public class Dept extends CommonDateEntity implements Serializable {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+   /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "msrl")
     private User user;  // 부서와 - 회원의 관계 - N:1
 
@@ -34,5 +34,5 @@ public class Dept extends CommonDateEntity implements Serializable {
     public Dept setUpdate(String name) {
         this.name = name;
         return this;
-    }
+    }*/
 }
