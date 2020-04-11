@@ -1,4 +1,4 @@
-package com.rest.api.entity.dept;
+package com.rest.api.entity;
 
 import com.rest.api.entity.common.CommonDateEntity;
 import lombok.AllArgsConstructor;
@@ -21,4 +21,18 @@ public class Dept extends CommonDateEntity implements Serializable {
     @Column(nullable = false, length = 100)
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "msrl")
+    private User user;  // 부서와 - 회원의 관계 - N:1
+
+    // 생성자
+    public Dept(User user, String name) {
+        this.user = user;
+        this.name = name;
+        }
+    // 수정시 데이터 처리
+    public Dept setUpdate(String name) {
+        this.name = name;
+        return this;
+    }
 }

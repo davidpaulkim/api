@@ -1,12 +1,10 @@
-package com.rest.api.entity.dept;
+package com.rest.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rest.api.entity.User;
 import com.rest.api.entity.common.CommonDateEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package com.rest.api.controller.api.user;
+package com.rest.api.controller.api;
 
 import com.rest.api.advice.exception.CUserNotFoundException;
 import com.rest.api.entity.User;

@@ -1,4 +1,4 @@
-package com.rest.api.controller.api.sigin;
+package com.rest.api.controller.api;
 
 import com.rest.api.advice.exception.CEmailSigninFailedException;
 import com.rest.api.advice.exception.CUserExistException;

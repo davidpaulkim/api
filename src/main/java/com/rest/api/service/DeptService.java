@@ -1,15 +1,15 @@
-package com.rest.api.service.dept;
+package com.rest.api.service;
 
 import com.rest.api.advice.exception.CNotOwnerException;
 import com.rest.api.advice.exception.CResourceNotExistException;
 import com.rest.api.advice.exception.CUserNotFoundException;
 import com.rest.api.entity.User;
-import com.rest.api.entity.dept.Dept;
-import com.rest.api.entity.dept.Role;
+import com.rest.api.entity.Dept;
+import com.rest.api.entity.Role;
 import com.rest.api.model.dept.ParamsRole;
 import com.rest.api.repo.UserJpaRepo;
-import com.rest.api.repo.dept.DeptJpaRepo;
-import com.rest.api.repo.dept.RoleJpaRepo;
+import com.rest.api.repo.DeptJpaRepo;
+import com.rest.api.repo.RoleJpaRepo;
 import com.rest.api.service.cache.CacheSevice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +38,12 @@ public class DeptService {
 //    @Cacheable(value = CacheKey.Dept, key = "#deptName", unless = "#result == null")
     public Dept findDept(String deptName) {
         return Optional.ofNullable(deptJpaRepo.findByName(deptName)).orElseThrow(CResourceNotExistException::new);
+    }
+
+    // 부서 이름으로 부서을 조회. 없을경우 CResourceNotExistException 처리
+//    @Cacheable(value = CacheKey.Dept, key = "#deptName", unless = "#result == null")
+    public List<Dept> findDepts(String uid) {
+        return deptJpaRepo.findByUidOrderByDeptIdDesc(uid);
     }
 
     // 부서 이름으로 역할 리스트 조회.
