@@ -1,8 +1,8 @@
 package com.rest.api.service;
 
-import com.rest.api.advice.exception.CNotOwnerException;
-import com.rest.api.advice.exception.CResourceNotExistException;
-import com.rest.api.advice.exception.CUserNotFoundException;
+import com.rest.api.advice.CNotOwnerException;
+import com.rest.api.advice.CResourceNotExistException;
+import com.rest.api.advice.CUserNotFoundException;
 import com.rest.api.entity.User;
 import com.rest.api.entity.Dept;
 import com.rest.api.entity.Role;

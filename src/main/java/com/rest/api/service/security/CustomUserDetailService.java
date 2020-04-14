@@ -1,6 +1,6 @@
 package com.rest.api.service.security;
 
-import com.rest.api.advice.exception.CUserNotFoundException;
+import com.rest.api.advice.CUserNotFoundException;
 import com.rest.api.common.CacheKey;
 import com.rest.api.repo.UserJpaRepo;
 import lombok.RequiredArgsConstructor;

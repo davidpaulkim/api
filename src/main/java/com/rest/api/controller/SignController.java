@@ -1,8 +1,8 @@
-package com.rest.api.controller.api;
+package com.rest.api.controller;
 
-import com.rest.api.advice.exception.CEmailSigninFailedException;
-import com.rest.api.advice.exception.CUserExistException;
-import com.rest.api.advice.exception.CUserNotFoundException;
+import com.rest.api.advice.CEmailSigninFailedException;
+import com.rest.api.advice.CUserExistException;
+import com.rest.api.advice.CUserNotFoundException;
 import com.rest.api.config.security.JwtTokenProvider;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.CommonResult;

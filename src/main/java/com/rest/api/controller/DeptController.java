@@ -1,4 +1,4 @@
-package com.rest.api.controller.api;
+package com.rest.api.controller;
 
 import com.rest.api.entity.Dept;
 import com.rest.api.entity.Role;

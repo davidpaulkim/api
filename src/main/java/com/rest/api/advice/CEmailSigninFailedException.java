@@ -1,4 +1,4 @@
-package com.rest.api.advice.exception;
+package com.rest.api.advice;
 
 public class CEmailSigninFailedException extends RuntimeException {
     public CEmailSigninFailedException(String msg, Throwable t) {

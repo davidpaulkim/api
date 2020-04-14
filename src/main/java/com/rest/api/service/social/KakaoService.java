@@ -1,7 +1,7 @@
 package com.rest.api.service.social;
 
 import com.google.gson.Gson;
-import com.rest.api.advice.exception.CCommunicationException;
+import com.rest.api.advice.CCommunicationException;
 import com.rest.api.model.social.KakaoProfile;
 import com.rest.api.model.social.RetKakaoAuth;
 import lombok.RequiredArgsConstructor;

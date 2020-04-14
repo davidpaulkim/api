@@ -1,6 +1,6 @@
 package com.rest.api.controller.exception;
 
-import com.rest.api.advice.exception.CAuthenticationEntryPointException;
+import com.rest.api.advice.CAuthenticationEntryPointException;
 import com.rest.api.model.response.CommonResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;

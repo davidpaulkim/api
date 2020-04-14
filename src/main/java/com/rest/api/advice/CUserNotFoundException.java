@@ -1,4 +1,4 @@
-package com.rest.api.advice.exception;
+package com.rest.api.advice;
 
 public class CUserNotFoundException extends RuntimeException {
     public CUserNotFoundException(String msg, Throwable t) {
