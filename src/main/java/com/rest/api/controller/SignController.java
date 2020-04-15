@@ -76,16 +76,16 @@ public class SignController {
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .roleList(Collections.singletonList("ROLE_USER"))
+                .roleList(rolelist)
                 .build());
 
         deptJpaRepo.save(Dept.builder()
                 .name(deptName)
                 .build());
 
-        roleJpaRepo.save(Role.builder()
+        /*roleJpaRepo.save(Role.builder()
                 .roleName(rolelist)
-                .build());
+                .build());*/
 
         return responseService.getSuccessResult();
     }
