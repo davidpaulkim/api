@@ -1,4 +1,4 @@
-package com.rest.api.advice;
+package com.rest.api.common.advice;
 
 public class CNotOwnerException extends RuntimeException {
 

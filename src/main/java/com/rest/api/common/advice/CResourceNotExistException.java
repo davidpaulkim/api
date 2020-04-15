@@ -1,4 +1,4 @@
-package com.rest.api.advice;
+package com.rest.api.common.advice;
 
 public class CResourceNotExistException extends RuntimeException {
     public CResourceNotExistException(String msg, Throwable t) {

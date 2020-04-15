@@ -1,6 +1,6 @@
 package com.rest.api.controller;
 
-import com.rest.api.advice.CUserNotFoundException;
+import com.rest.api.common.advice.CUserNotFoundException;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.ListResult;

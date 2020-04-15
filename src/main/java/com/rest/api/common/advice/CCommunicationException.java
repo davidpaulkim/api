@@ -1,4 +1,4 @@
-package com.rest.api.advice;
+package com.rest.api.common.advice;
 
 public class CCommunicationException extends RuntimeException {
     public CCommunicationException(String msg, Throwable t) {

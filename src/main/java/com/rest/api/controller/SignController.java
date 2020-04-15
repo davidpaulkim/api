@@ -1,17 +1,16 @@
 package com.rest.api.controller;
 
-import com.rest.api.advice.CEmailSigninFailedException;
-import com.rest.api.advice.CUserExistException;
-import com.rest.api.advice.CUserNotFoundException;
+import com.rest.api.common.advice.CEmailSigninFailedException;
+import com.rest.api.common.advice.CUserExistException;
+import com.rest.api.common.advice.CUserNotFoundException;
 import com.rest.api.config.security.JwtTokenProvider;
 import com.rest.api.entity.Dept;
-import com.rest.api.entity.Role;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.SingleResult;
 import com.rest.api.model.social.KakaoProfile;
 import com.rest.api.repo.DeptJpaRepo;
-import com.rest.api.repo.RoleJpaRepo;
+/*import com.rest.api.repo.RoleJpaRepo;*/
 import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.ResponseService;
 import com.rest.api.service.social.KakaoService;
@@ -34,7 +33,7 @@ public class SignController {
 
     private final UserJpaRepo userJpaRepo;
     private final DeptJpaRepo deptJpaRepo;
-    private final RoleJpaRepo roleJpaRepo;
+    /*private final RoleJpaRepo roleJpaRepo;*/
 
     private final JwtTokenProvider jwtTokenProvider;
     private final ResponseService responseService;
@@ -70,13 +69,14 @@ public class SignController {
             @ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
                                @ApiParam(value = "이름", required = true) @RequestParam String name,
-                               @ApiParam(value = "역할", required = true) @RequestParam List<String> rolelist) {
+                               /*@ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {*/
+                               @ApiParam(value = "역할", required = true) @RequestParam String role) {
 
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .roleList(rolelist)
+                .roleList(Collections.singletonList(role))
                 .build());
 
         deptJpaRepo.save(Dept.builder()

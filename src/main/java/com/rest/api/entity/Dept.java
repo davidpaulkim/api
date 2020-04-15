@@ -1,6 +1,6 @@
 package com.rest.api.entity;
 
-import com.rest.api.entity.common.CommonDateEntity;
+import com.rest.api.common.entity.CommonDateEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

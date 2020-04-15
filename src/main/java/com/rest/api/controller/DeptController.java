@@ -1,7 +1,7 @@
 package com.rest.api.controller;
 
 import com.rest.api.entity.Dept;
-import com.rest.api.entity.Role;
+/*import com.rest.api.entity.Role;*/
 import com.rest.api.model.dept.ParamsRole;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.ListResult;
@@ -33,20 +33,21 @@ public class DeptController {
     })
     @ApiOperation(value = "부서 생성", notes = "신규 부서를 생성한다.")
     @PostMapping(value = "/{deptName}")
+
     public SingleResult<Dept> deptCreate(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.insertDept(deptName));
     }
 
 
-    @ApiImplicitParams({
+    /*@ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-
-    @ApiOperation(value = "부서 리스트 조회", notes = "부서 리스트를 조회한다.")
+*/
+    /*@ApiOperation(value = "부서 리스트 조회", notes = "부서 리스트를 조회한다.")
     @GetMapping(value = "/{uid}")
     public ListResult<Dept> deptsGet(@PathVariable String uid) {
         return responseService.getListResult(deptService.findDepts(uid));
-    }
+    }*/
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")

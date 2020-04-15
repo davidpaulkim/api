@@ -2,7 +2,7 @@ package com.rest.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rest.api.entity.common.CommonDateEntity;
+import com.rest.api.common.entity.CommonDateEntity;
 import lombok.*;
 import org.hibernate.annotations.Proxy;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,7 +40,7 @@ public class User extends CommonDateEntity implements UserDetails {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
-    private List<String> roleList = new ArrayList<>();
+    private List<String> roleList = new ArrayList<String>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

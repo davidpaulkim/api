@@ -1,7 +1,7 @@
+/*
 package com.rest.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rest.api.entity.common.CommonDateEntity;
+import com.rest.api.common.entity.CommonDateEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +21,7 @@ public class Role extends CommonDateEntity implements Serializable {
     @Column(nullable = false, length = 100)
     private List<String> roleName;
 
+*/
 /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_id")
@@ -29,16 +30,20 @@ public class Role extends CommonDateEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "msrl")
     private User user;  // 롤과 - 회원의 관계 - N:1
-*/
+*//*
+
 
     // Join 테이블이 Json결과에 표시되지 않도록 처리.
+*/
 /*
     @JsonIgnore
     public Dept getDept() {
         return dept;
     }
-*/
+*//*
 
+
+*/
 /*
     // 생성자
     public Role(User user, Dept dept, List<String> name) {
@@ -46,7 +51,8 @@ public class Role extends CommonDateEntity implements Serializable {
         this.dept = dept;
         this.roleName = name;
     }
-*/
+*//*
+
 
     // 수정시 데이터 처리
     public Role setUpdate(List<String> name) {
@@ -54,3 +60,4 @@ public class Role extends CommonDateEntity implements Serializable {
         return this;
     }
 }
+*/

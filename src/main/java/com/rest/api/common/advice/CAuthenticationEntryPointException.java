@@ -1,4 +1,4 @@
-package com.rest.api.advice;
+package com.rest.api.common.advice;
 
 public class CAuthenticationEntryPointException extends RuntimeException {
     public CAuthenticationEntryPointException(String msg, Throwable t) {
