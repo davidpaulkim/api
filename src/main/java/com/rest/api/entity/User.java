@@ -9,10 +9,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Builder // builder를 사용할수 있게 합니다.
@@ -38,9 +40,20 @@ public class User extends CommonDateEntity implements UserDetails {
     @Column(length = 100)
     private String provider;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roleList = new ArrayList<String>();
+
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_dept", joinColumns = {
+            @JoinColumn(name = "user_id") },
+            inverseJoinColumns = @JoinColumn(name = "dept_id"))
+    private List<Dept> depts;
+
+    public List<Dept> getDepts() {
+        return depts;
+    }
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public List<String> roleList = new ArrayList<String>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

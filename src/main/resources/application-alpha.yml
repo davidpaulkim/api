@@ -1,7 +1,7 @@
 logging:
   level:
-    root: warn
-    com.rest.api: info
+    root: debug
+    com.rest.api: debug
   path: /home/ec2-user/app/log
   file:
     max-history: 7

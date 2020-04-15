@@ -1,8 +1,6 @@
 package com.rest.api.service;
 
-import com.rest.api.common.advice.CNotOwnerException;
-import com.rest.api.common.advice.CResourceNotExistException;
-import com.rest.api.common.advice.CUserNotFoundException;
+import com.rest.api.common.CResourceNotExistException;
 import com.rest.api.entity.Dept;
 import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.repo.DeptJpaRepo;
@@ -13,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -36,6 +33,7 @@ public class DeptService {
     public Dept findDept(String deptName) {
         return Optional.ofNullable(deptJpaRepo.findByName(deptName)).orElseThrow(CResourceNotExistException::new);
     }
+
     // 부서 이름으로 부서을 조회. 없을경우 CResourceNotExistException 처리
 
 //    @Cacheable(value = CacheKey.Dept, key = "#deptName", unless = "#result == null")

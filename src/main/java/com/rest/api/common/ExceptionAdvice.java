@@ -1,4 +1,4 @@
-package com.rest.api.common.advice;
+package com.rest.api.common;
 
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.service.ResponseService;

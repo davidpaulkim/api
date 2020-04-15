@@ -1,4 +1,4 @@
-package com.rest.api.common.advice;
+package com.rest.api.common;
 
 public class CUserExistException extends RuntimeException {
     public CUserExistException(String msg, Throwable t) {

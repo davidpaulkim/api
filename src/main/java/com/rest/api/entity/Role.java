@@ -1,27 +1,53 @@
-/*
 package com.rest.api.entity;
 
 import com.rest.api.common.entity.CommonDateEntity;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import com.rest.api.entity.RoleName;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Role extends CommonDateEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
-    @Column(nullable = false, length = 100)
-    private List<String> roleName;
 
-*/
+    @Enumerated(EnumType.STRING)
+    @NaturalId
+    @Column(length = 60)
+    private RoleName name;
+
+    public Role() {}
+
+    public Role(RoleName name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return roleId;
+    }
+
+    public void setId(Long id) {
+        this.roleId = id;
+    }
+
+    public RoleName getName() {
+        return name;
+    }
+
+    public void setName(RoleName name) {
+        this.name = name;
+    }
+}
+
 /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_id")
@@ -40,18 +66,18 @@ public class Role extends CommonDateEntity implements Serializable {
     public Dept getDept() {
         return dept;
     }
-*//*
 
 
 */
+
 /*
+
     // 생성자
     public Role(User user, Dept dept, List<String> name) {
         this.user = user;
         this.dept = dept;
         this.roleName = name;
     }
-*//*
 
 
     // 수정시 데이터 처리
@@ -59,5 +85,6 @@ public class Role extends CommonDateEntity implements Serializable {
         this.roleName = name;
         return this;
     }
-}
+
 */
+

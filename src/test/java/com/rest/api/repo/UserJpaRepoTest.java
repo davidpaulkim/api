@@ -1,3 +1,4 @@
+/*
 package com.rest.api.repo;
 
 import com.rest.api.entity.User;
@@ -44,3 +45,4 @@ public class UserJpaRepoTest {
         assertThat(user.get().getName(), is(name)); // user객체의 name과 name변수 값이 같은지 체크
     }
 }
+*/

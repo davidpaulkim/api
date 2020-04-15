@@ -1,10 +1,9 @@
 package com.rest.api.controller;
 
-import com.rest.api.common.advice.CEmailSigninFailedException;
-import com.rest.api.common.advice.CUserExistException;
-import com.rest.api.common.advice.CUserNotFoundException;
+import com.rest.api.common.CEmailSigninFailedException;
+import com.rest.api.common.CUserExistException;
+import com.rest.api.common.CUserNotFoundException;
 import com.rest.api.config.security.JwtTokenProvider;
-import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.SingleResult;
@@ -21,8 +20,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,7 +81,7 @@ public class SignController {
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .roleList(listrole)
+                /*.roleList(listrole)*/
                 .build());
 /*
 

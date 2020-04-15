@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Builder
 @Entity
@@ -20,6 +22,23 @@ public class Dept extends CommonDateEntity implements Serializable {
     private Long deptID;
     @Column(nullable = false, length = 100)
     private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy="depts")
+    private List<User> users;
+    public List<User> getUsers() {
+        return users;
+        }
+
+/*
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "role_dept", joinColumns = {
+            @JoinColumn(name = "deptId"},
+                    inverseJoinColumns = {
+            @JoinColumn(name = "roleId"})
+    private List<Permission> permissions;
+   */
+
+
 
    /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "msrl")
