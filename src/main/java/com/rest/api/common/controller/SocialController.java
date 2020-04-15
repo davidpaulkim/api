@@ -1,4 +1,4 @@
-package com.rest.api.common.common;
+package com.rest.api.common.controller;
 
 import com.google.gson.Gson;
 import com.rest.api.service.social.KakaoService;

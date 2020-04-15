@@ -1,9 +1,6 @@
 package com.rest.api.service.cache;
 
-import com.rest.api.common.CacheKey;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Slf4j

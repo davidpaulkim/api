@@ -10,7 +10,6 @@ import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.SingleResult;
 import com.rest.api.model.social.KakaoProfile;
 import com.rest.api.repo.DeptJpaRepo;
-/*import com.rest.api.repo.RoleJpaRepo;*/
 import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.ResponseService;
 import com.rest.api.service.social.KakaoService;
@@ -18,12 +17,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.Collections.singletonList;
+
+/*import com.rest.api.repo.RoleJpaRepo;*/
 
 @Api(tags = {"1. Sign"})
 @RequiredArgsConstructor
@@ -39,6 +42,9 @@ public class SignController {
     private final ResponseService responseService;
     private final PasswordEncoder passwordEncoder;
     private final KakaoService kakaoService;
+    private List listrole;
+    private String Listrole;
+    private List<GrantedAuthority> authorities;
 
     @ApiOperation(value = "로그인", notes = "이메일 회원 로그인을 한다.")
     @PostMapping(value = "/signin")
@@ -70,13 +76,13 @@ public class SignController {
                                @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
                                @ApiParam(value = "이름", required = true) @RequestParam String name,
                                /*@ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {*/
-                               @ApiParam(value = "역할", required = true) @RequestParam String role) {
-
+                               @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
+        
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .roleList(Collections.singletonList(role))
+                .roleList(listrole)
                 .build());
 
         deptJpaRepo.save(Dept.builder()
@@ -89,6 +95,7 @@ public class SignController {
 
         return responseService.getSuccessResult();
     }
+
 
     @ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
     @PostMapping(value = "/signup/{provider}")
@@ -105,7 +112,7 @@ public class SignController {
                 .uid(String.valueOf(profile.getId()))
                 .provider(provider)
                 .name(name)
-                .roleList(Collections.singletonList("ROLE_USER"))
+                .roleList(singletonList("ROLE_USER"))
                 .build();
 
         userJpaRepo.save(inUser);

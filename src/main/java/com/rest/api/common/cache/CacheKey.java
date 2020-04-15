@@ -1,4 +1,4 @@
-package com.rest.api.common;
+package com.rest.api.common.cache;
 
 public class CacheKey {
 
