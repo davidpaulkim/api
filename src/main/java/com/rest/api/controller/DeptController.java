@@ -36,7 +36,8 @@ public class DeptController {
     public SingleResult<Dept> deptCreate(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.insertDept(deptName));
     }
-/*
+
+
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
@@ -45,7 +46,7 @@ public class DeptController {
     @GetMapping(value = "/{uid}")
     public ListResult<Dept> deptsGet(@PathVariable String uid) {
         return responseService.getListResult(deptService.findDepts(uid));
-    }*/
+    }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
@@ -57,7 +58,7 @@ public class DeptController {
         return responseService.getSingleResult(deptService.findDept(deptName));
     }
 
-    @ApiImplicitParams({
+    /*@ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
 
@@ -65,9 +66,9 @@ public class DeptController {
     @GetMapping(value = "/{deptName}/roles")
     public ListResult<Role> rolesGet(@PathVariable String deptName) {
         return responseService.getListResult(deptService.findRoles(deptName));
-    }
+    }*/
 
-    @ApiImplicitParams({
+   /* @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "역할 등록", notes = "역할 등록.")
@@ -77,8 +78,8 @@ public class DeptController {
         String uid = authentication.getName();
         return responseService.getSingleResult(deptService.writeRole(uid, deptName, role));
     }
-
-    @ApiImplicitParams({
+*/
+  /*  @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
 
@@ -86,9 +87,9 @@ public class DeptController {
     @GetMapping(value = "/role/{roleId}")
     public SingleResult<Role> roleGet(@PathVariable long roleId) {
         return responseService.getSingleResult(deptService.getRole(roleId));
-    }
-
+    }   *//**//*
     @ApiImplicitParams({
+
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "역할 수정", notes = "부서 역할을 수정한다.")
@@ -97,9 +98,9 @@ public class DeptController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String uid = authentication.getName();
         return responseService.getSingleResult(deptService.updateRole(roleId, uid, role));
-    }
+    }*/
 
-    @ApiImplicitParams({
+  /*  @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "역할 삭제", notes = "역할을 삭제한다.")
@@ -109,5 +110,5 @@ public class DeptController {
         String uid = authentication.getName();
         deptService.deleteRole(roleId, uid);
         return responseService.getSuccessResult();
-    }
+    }*/
 }

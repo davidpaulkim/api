@@ -39,18 +39,18 @@ public class DeptService {
     public Dept findDept(String deptName) {
         return Optional.ofNullable(deptJpaRepo.findByName(deptName)).orElseThrow(CResourceNotExistException::new);
     }
-/*
     // 부서 이름으로 부서을 조회. 없을경우 CResourceNotExistException 처리
+
 //    @Cacheable(value = CacheKey.Dept, key = "#deptName", unless = "#result == null")
     public List<Dept> findDepts(String uid) {
         return deptJpaRepo.findByUidOrderByDeptIdDesc(uid);
-    }*/
-
-    // 부서 이름으로 역할 리스트 조회.
+    }
+/*
     // @Cacheable(value = CacheKey.ROLES, key = "#deptName", unless = "#result == null")
     public List<Role> findRoles(String deptName) {
         return roleJpaRepo.findByDeptOrderByRoleIdDesc(findDept(deptName));
     }
+    // 부서 이름으로 역할 리스트 조회.
 
     // 역할ID로 역할 단건 조회. 없을경우 CResourceNotExistException 처리
 
@@ -63,7 +63,7 @@ public class DeptService {
  //   @CacheEvict(value = CacheKey.ROLES, key = "#deptName")
     public Role writeRole(String uid, String deptName, ParamsRole paramsRole) {
         Dept dept = findDept(deptName);
-        Role role = new Role(userJpaRepo.findByUid(uid).orElseThrow(CUserNotFoundException::new), dept, paramsRole.getRoleName());
+        Role role = new Role(uid, deptName, paramsRole.getRoleName());
         return roleJpaRepo.save(role);
     }
 
@@ -90,5 +90,5 @@ public class DeptService {
         roleJpaRepo.delete(role);
  //       cacheSevice.deleteDeptCache(role.getRoleId(), role.getDept().getName());
         return true;
-    }
+    }*/
 }
