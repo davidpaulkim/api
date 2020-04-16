@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,21 +69,38 @@ public class SignController {
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
     }
 
+
+    @ApiOperation(value = "가입", notes = "회원가입을 한다.")
+    @PostMapping(value = "/signup")
+    public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
+                               @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
+                               @ApiParam(value = "이름", required = true) @RequestParam String name) {
+
+        userJpaRepo.save(User.builder()
+                .uid(id)
+                .password(passwordEncoder.encode(password))
+                .name(name)
+                .roles(Collections.singletonList("ROLE_USER"))
+                .build());
+        return responseService.getSuccessResult();
+    }
+
+/*
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
     @PostMapping(value = "/signup")
     public CommonResult signup(@ApiParam(value = "부서", required = true) @RequestParam String deptName,
             @ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
                                @ApiParam(value = "이름", required = true) @RequestParam String name,
-                               /*@ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {*/
+                               // @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
                                @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
         
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                /*.roleList(listrole)*/
-                .build());
+         //     .roleList(listrole)
+                .build());*/
 /*
 
         deptJpaRepo.save(Dept.builder()
@@ -94,8 +112,8 @@ public class SignController {
                 .roleName(rolelist)
                 .build());*/
 
-        return responseService.getSuccessResult();
-    }
+    /*    return responseService.getSuccessResult();
+    }*/
 
 
     @ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")

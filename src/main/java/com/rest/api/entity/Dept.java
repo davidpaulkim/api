@@ -26,7 +26,7 @@ public class Dept extends CommonDateEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deptID;
     @Column(nullable = false, length = 100)
-    private String deptName;
+    private String name;
 
     @ManyToMany
     @JoinTable(

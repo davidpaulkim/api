@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
+
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,6 +45,8 @@ public class User extends CommonDateEntity implements UserDetails {
     private List<Dept> depts = new ArrayList<>();
 
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
     private List<String> roles = new ArrayList<>();
 
     @Override
