@@ -74,13 +74,14 @@ public class SignController {
     @PostMapping(value = "/signup")
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
-                               @ApiParam(value = "이름", required = true) @RequestParam String name) {
+                               @ApiParam(value = "이름", required = true) @RequestParam String name,
+                               @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
 
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .roles(Collections.singletonList("ROLE_USER"))
+                .roles(listrole)
                 .build());
         return responseService.getSuccessResult();
     }
