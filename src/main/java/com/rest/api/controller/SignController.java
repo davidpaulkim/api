@@ -109,7 +109,6 @@ public class SignController {
         deptJpaRepo.save(Dept.builder()
                 .name(deptName).build());
 
-
         return responseService.getSuccessResult();
     }
 

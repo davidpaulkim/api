@@ -41,8 +41,17 @@ public class User extends CommonDateEntity implements UserDetails {
     @Column(length = 100)
      private String provider;
 
-    @ManyToMany(mappedBy = "users")
-    private List<Dept> depts = new ArrayList<>();
+    /*@ManyToMany(mappedBy = "users")
+    private List<Dept> depts = new ArrayList<>();*/
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "USER_DEPT",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "dept_id")
+    )
+    private List<Dept> users = new ArrayList<>();
+
 
 
     @ElementCollection(fetch = FetchType.EAGER)
