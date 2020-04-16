@@ -105,9 +105,9 @@ public class SignController {
                 //.depts()
                 .build());
 
-        Dept dept = deptJpaRepo.findByName(deptName);
+/*        Dept dept = deptJpaRepo.findByName(deptName);
         deptJpaRepo.save(Dept.builder()
-                .name(deptName).build());
+                .name(deptName).build());*/
 
         return responseService.getSuccessResult();
     }
