@@ -28,7 +28,7 @@ public class Dept extends CommonDateEntity implements Serializable {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @ManyToMany(mappedBy = "depts")
+    @ManyToMany(mappedBy = "depts",cascade=CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
 

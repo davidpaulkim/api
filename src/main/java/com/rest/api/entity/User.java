@@ -50,7 +50,7 @@ public class User extends CommonDateEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "dept_id")
     )
-    private List<Dept> users = new ArrayList<>();
+    private List<Dept> depts = new ArrayList<>();
 
 
 
