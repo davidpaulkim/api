@@ -54,7 +54,7 @@ public class SignController {
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new CEmailSigninFailedException();
 
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoleList()));
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
     }
 
     @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
@@ -65,7 +65,7 @@ public class SignController {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoleList()));
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
     }
 
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
@@ -113,7 +113,7 @@ public class SignController {
                 .uid(String.valueOf(profile.getId()))
                 .provider(provider)
                 .name(name)
-                .roleList(singletonList("ROLE_USER"))
+                .roles(singletonList("ROLE_USER"))
                 .build();
 
         userJpaRepo.save(inUser);

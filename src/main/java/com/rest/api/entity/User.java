@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Table(name = "user") // 'user' 테이블과 매핑됨을 명시
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 @Proxy(lazy = false)
-public class User extends CommonDateEntity {
+public class User extends CommonDateEntity implements UserDetails {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msrl;
@@ -41,22 +41,17 @@ public class User extends CommonDateEntity {
     @Column(length = 100)
      private String provider;
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "urls"),
-            inverseJoinColumns = @JoinColumn(name = "roleId"))
-    private Set<Role> roles = new HashSet<>();
+    @ManyToMany(mappedBy = "users")
+    private List<Dept> depts = new ArrayList<>();
 
 
+    private List<String> roles = new ArrayList<>();
 
-    /*@Override
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map().map(Collectors.toList());
+        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
-*/
 
-    /*
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
@@ -85,5 +80,7 @@ public class User extends CommonDateEntity {
     @Override
     public boolean isEnabled() {
         return true;
-    }*/
+    }
+
+
 }
