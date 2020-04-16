@@ -46,11 +46,15 @@ public class User extends CommonDateEntity implements UserDetails {
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
-            name = "USER_DEPT",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "dept_id")
+            name = "DEPT_USER",
+            joinColumns = {
+                    @JoinColumn(name = "USER_ID", referencedColumnName = "msrl")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "DEPT_ID", referencedColumnName = "deptID")
+            }
     )
     private List<Dept> depts = new ArrayList<>();
+    /*private List<Dept> deptList;*/
 
 
 

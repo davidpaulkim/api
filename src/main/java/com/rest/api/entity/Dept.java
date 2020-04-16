@@ -30,6 +30,7 @@ public class Dept extends CommonDateEntity implements Serializable {
 
     @ManyToMany(mappedBy = "depts",cascade=CascadeType.ALL)
     private List<User> users = new ArrayList<>();
+    /*private List<User> user;*/
 
 
 /*
