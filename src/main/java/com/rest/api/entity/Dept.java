@@ -28,11 +28,11 @@ public class Dept extends CommonDateEntity implements Serializable {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name = "DEPT_USER",
-            joinColumns = @JoinColumn(name = "deptID"),
-            inverseJoinColumns = @JoinColumn(name = "usrl")
+            joinColumns = @JoinColumn(name = "dept_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> users = new ArrayList<>();
 

@@ -1,9 +1,11 @@
 package com.rest.api.controller;
 
+import com.google.common.collect.ImmutableList;
 import com.rest.api.common.CEmailSigninFailedException;
 import com.rest.api.common.CUserExistException;
 import com.rest.api.common.CUserNotFoundException;
 import com.rest.api.config.security.JwtTokenProvider;
+import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.SingleResult;
@@ -68,6 +70,21 @@ public class SignController {
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
     }
+/*
+    @ApiOperation(value = "가입", notes = "회원가입을 한다.")
+    @PostMapping(value = "/signup")
+    public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
+                               @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
+                               @ApiParam(value = "이름", required = true) @RequestParam String name) {
+
+        userJpaRepo.save(User.builder()
+                .uid(id)
+                .password(passwordEncoder.encode(password))
+                .name(name)
+                .roles(Collections.singletonList("ROLE_USER"))
+                .build());
+        return responseService.getSuccessResult();
+    }*/
 
 
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
@@ -75,14 +92,24 @@ public class SignController {
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
                                @ApiParam(value = "이름", required = true) @RequestParam String name,
-                               @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
+                               @ApiParam(value = "부서", required = true) @RequestParam String deptName) {
+//                               @ApiParam(value = "역할", required = true) @RequestParam String role) {
 
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .roles(listrole)
+                .roles(Collections.singletonList("ROLE_USER"))
+//                .roles(ImmutableList.of(role))
+//                .roles(listrole)
+                //.depts()
                 .build());
+
+        Dept dept = deptJpaRepo.findByName(deptName);
+        deptJpaRepo.save(Dept.builder()
+                .name("EDUCATION").build());
+
+
         return responseService.getSuccessResult();
     }
 
