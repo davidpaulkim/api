@@ -92,22 +92,22 @@ public class SignController {
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
                                @ApiParam(value = "이름", required = true) @RequestParam String name,
-                               @ApiParam(value = "부서", required = true) @RequestParam String deptName) {
-//                               @ApiParam(value = "역할", required = true) @RequestParam String role) {
+                               @ApiParam(value = "부서", required = true) @RequestParam String deptName,
+                               @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
 
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .roles(Collections.singletonList("ROLE_USER"))
+             //   .roles(Collections.singletonList("ROLE_USER"))
 //                .roles(ImmutableList.of(role))
-//                .roles(listrole)
+                .roles(listrole)
                 //.depts()
                 .build());
 
         Dept dept = deptJpaRepo.findByName(deptName);
         deptJpaRepo.save(Dept.builder()
-                .name("EDUCATION").build());
+                .name(deptName).build());
 
 
         return responseService.getSuccessResult();
