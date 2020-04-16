@@ -95,6 +95,15 @@ public class SignController {
                                @ApiParam(value = "부서", required = true) @RequestParam String deptName,
                                @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
 
+        Optional<Dept> result = Optional.ofNullable(deptJpaRepo.findByName(deptName));
+        if (result.isPresent()) {
+            throw new CUserExistException();
+        } else {
+            deptJpaRepo.save(Dept.builder()
+                    .name(deptName).build());
+        }
+
+
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
@@ -105,9 +114,9 @@ public class SignController {
                 //.depts()
                 .build());
 
-/*        Dept dept = deptJpaRepo.findByName(deptName);
-        deptJpaRepo.save(Dept.builder()
-                .name(deptName).build());*/
+
+
+
 
         return responseService.getSuccessResult();
     }
