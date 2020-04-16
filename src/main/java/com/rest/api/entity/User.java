@@ -11,10 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Builder // builder를 사용할수 있게 합니다.
@@ -26,40 +23,40 @@ import java.util.stream.Collectors;
 @Table(name = "user") // 'user' 테이블과 매핑됨을 명시
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 @Proxy(lazy = false)
-public class User extends CommonDateEntity implements UserDetails {
+public class User extends CommonDateEntity {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msrl;
+
     @Column(nullable = false, unique = true, length = 50)
     private String uid;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(length = 100)
     private String password;
+
     @Column(nullable = false, length = 100)
     private String name;
+
     @Column(length = 100)
-    private String provider;
+     private String provider;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "urls"),
+            inverseJoinColumns = @JoinColumn(name = "roleId"))
+    private Set<Role> roles = new HashSet<>();
 
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_dept", joinColumns = {
-            @JoinColumn(name = "user_id") },
-            inverseJoinColumns = @JoinColumn(name = "dept_id"))
-    private List<Dept> depts;
-
-    public List<Dept> getDepts() {
-        return depts;
-    }
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public List<String> roleList = new ArrayList<String>();
-
-    @Override
+    /*@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roleList.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return this.roles.stream().map().map(Collectors.toList());
     }
+*/
 
+    /*
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
@@ -88,5 +85,5 @@ public class User extends CommonDateEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 }

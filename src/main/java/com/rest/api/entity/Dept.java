@@ -1,13 +1,17 @@
 package com.rest.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.api.common.entity.CommonDateEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,19 +20,23 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 public class Dept extends CommonDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deptID;
     @Column(nullable = false, length = 100)
-    private String name;
+    private String deptName;
 
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy="depts")
-    private List<User> users;
-    public List<User> getUsers() {
-        return users;
-        }
+    @ManyToMany
+    @JoinTable(
+            name = "DEPT_USER",
+            joinColumns = @JoinColumn(name = "deptID"),
+            inverseJoinColumns = @JoinColumn(name = "usrl")
+    )
+    private List<User> users = new ArrayList<>();
 
+    }
 /*
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_dept", joinColumns = {
@@ -54,4 +62,3 @@ public class Dept extends CommonDateEntity implements Serializable {
         this.name = name;
         return this;
     }*/
-}
