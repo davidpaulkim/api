@@ -97,7 +97,7 @@ public class SignController {
 
         Optional<Dept> result = Optional.ofNullable(deptJpaRepo.findByName(deptName));
         if (result.isPresent()) {
-            throw new CUserExistException();
+            System.out.println("기존 부서가 있음");
         } else {
             deptJpaRepo.save(Dept.builder()
                     .name(deptName).build());
