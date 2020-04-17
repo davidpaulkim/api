@@ -1,6 +1,5 @@
 package com.rest.api.controller;
 
-import com.google.common.collect.ImmutableList;
 import com.rest.api.common.CEmailSigninFailedException;
 import com.rest.api.common.CUserExistException;
 import com.rest.api.common.CUserNotFoundException;
@@ -22,7 +21,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,7 +98,7 @@ public class SignController {
             System.out.println("기존 부서가 있음");
         } else {
             deptJpaRepo.save(Dept.builder()
-                    .name(deptName).build());
+                    .detpNname(deptName).build());
         }
 
         userJpaRepo.save(User.builder()

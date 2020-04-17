@@ -23,9 +23,9 @@ public class Dept extends CommonDateEntity implements Serializable {
     private Long deptID;
 
     @Column(nullable = false, length = 100)
-    private String name;
+    private String detpNname;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+   /* @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name = "USER_DEPT",
             joinColumns = {
@@ -35,22 +35,24 @@ public class Dept extends CommonDateEntity implements Serializable {
             }
     )
 
-    private List<User> havingUsers = new ArrayList<>();
-
-
-    public Dept(Long deptID, String name, List<User> havingUsers) {
-        this.deptID = deptID;
-        this.name = name;
-        this.havingUsers = havingUsers;
-    }
+    private List<User> havingUsers = new ArrayList<>();*/
 
 
     // @ElementCollection(fetch = FetchType.EAGER) @ElementCollection은 user-depts를 생성시킴
 
-/*    @ManyToMany(mappedBy = "depts",cascade=CascadeType.ALL)
-    private List<User> users = new ArrayList<>();*/
+    @ManyToMany(mappedBy = "deptProfiles", cascade = CascadeType.ALL)
+    private List<User> havingUsers = new ArrayList<>();
 
     /*private List<User> user;*/
+
+
+    public Dept(Long deptID, String name, List<User> havingUsers) {
+        this.deptID = deptID;
+        this.detpNname = name;
+        this.havingUsers = havingUsers;
+    }
+
+
 
 
 /*
@@ -63,8 +65,8 @@ public class Dept extends CommonDateEntity implements Serializable {
     private List<User> users = new ArrayList<>();
 */
 
-    }
-/*
+
+ /*
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_dept", joinColumns = {
             @JoinColumn(name = "deptId"},
@@ -89,3 +91,6 @@ public class Dept extends CommonDateEntity implements Serializable {
         this.name = name;
         return this;
     }*/
+
+
+}

@@ -45,24 +45,26 @@ public class User extends CommonDateEntity implements UserDetails {
     /*@ManyToMany(mappedBy = "users")
     private List<Dept> depts = new ArrayList<>();*/
 
+/*
     @ManyToMany(mappedBy = "havingUsers",cascade=CascadeType.ALL)
     private List<Dept> deptProfiles = new ArrayList<>();
+*/
 
     
 
     /*List<Dept> result = deptJpaRepo.getUserWithDeptCount("")*/
 
-    /*@ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(
-            name = "DEPT_USER",
+            name = "user_dept",
             joinColumns = {
-                    @JoinColumn(name = "msrl", referencedColumnName = "msrl")},
+                    @JoinColumn(name = "user_id", referencedColumnName = "msrl")},
             inverseJoinColumns = {
-                    @JoinColumn(name = "deptID", referencedColumnName = "deptID")
+                    @JoinColumn(name = "dept_id", referencedColumnName = "deptID")
             }
     )
 
-    private List<Dept> depts = new ArrayList<>();*/
+    private List<Dept> deptProfiles = new ArrayList<>();
 
     /*private List<Dept> deptList;*/
 

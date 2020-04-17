@@ -26,7 +26,7 @@ public class DeptService {
     private final CacheSevice cacheSevice;
 
     public Dept insertDept(String deptName) {
-        return deptJpaRepo.save(Dept.builder().name(deptName).build());
+        return deptJpaRepo.save(Dept.builder().detpNname(deptName).build());
     }
 
     // 부서 이름으로 부서을 조회. 없을경우 CResourceNotExistException 처리
