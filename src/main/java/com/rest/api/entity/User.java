@@ -3,17 +3,16 @@ package com.rest.api.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rest.api.common.entity.CommonDateEntity;
-import com.rest.api.repo.DeptJpaRepo;
 import lombok.*;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.stat.internal.DeprecatedNaturalIdCacheStatisticsImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Builder // builder를 사용할수 있게 합니다.
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 @Table(name = "user") // 'user' 테이블과 매핑됨을 명시
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 @Proxy(lazy = false)
-public class User<result> extends CommonDateEntity implements UserDetails {
+public class User extends CommonDateEntity implements UserDetails {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msrl;

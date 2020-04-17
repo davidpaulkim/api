@@ -1,25 +1,19 @@
 package com.rest.api.controller;
 
 import com.rest.api.entity.Dept;
-/*import com.rest.api.entity.Role;*/
-import com.rest.api.model.dept.ParamsRole;
-import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
 import com.rest.api.repo.DeptJpaRepo;
-import com.rest.api.repo.UserJpaRepo;
-import com.rest.api.service.ResponseService;
 import com.rest.api.service.DeptService;
+import com.rest.api.service.ResponseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+/*import com.rest.api.entity.Role;*/
 
 @Api(tags = {"3. Dept"})
 @RequiredArgsConstructor
@@ -31,32 +25,48 @@ public class DeptController {
     private final DeptJpaRepo deptJpaRepo;
     private final ResponseService responseService;
 
-
+   //-------------1
+    // 1-1
    @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
+   //     1-2
     @ApiOperation(value = "부서 생성", notes = "신규 부서를 생성한다.")
     @PostMapping(value = "/{deptName}")
-
+             // 1-3
     public SingleResult<Dept> deptCreate(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.insertDept(deptName));
     }
 
-    /*@ApiImplicitParams({
+
+
+//------------2
+    // 2-1
+    @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-*/
+          // 2-2
     @ApiOperation(value = "부서 리스트 조회", notes = "부서 리스트를 조회한다.")
     @GetMapping(value = "/depts")
+            //2-3
     public ListResult<Dept> findAllDept() {
         return responseService.getListResult(deptJpaRepo.findAll());
     }
 
-/*   @ApiImplicitParams({
+
+
+
+// -------------3
+    // 3-1
+   @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-    })*/
+    })
+
+   // 3-2
     @ApiOperation(value = "부서 정보 조회", notes = "부서 정보를 조회한다.")
     @GetMapping(value = "/{deptName}")
+
+   // 3-3
     public SingleResult<Dept> deptGet(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.findDept(deptName));
     }
