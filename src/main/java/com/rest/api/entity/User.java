@@ -45,7 +45,10 @@ public class User extends CommonDateEntity implements UserDetails {
     /*@ManyToMany(mappedBy = "users")
     private List<Dept> depts = new ArrayList<>();*/
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "users",cascade=CascadeType.ALL)
+    private List<Dept> depts = new ArrayList<>();
+
+    /*@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name = "DEPT_USER",
             joinColumns = {
@@ -55,7 +58,8 @@ public class User extends CommonDateEntity implements UserDetails {
             }
     )
 
-    private List<Dept> depts = new ArrayList<>();
+    private List<Dept> depts = new ArrayList<>();*/
+
     /*private List<Dept> deptList;*/
 
 

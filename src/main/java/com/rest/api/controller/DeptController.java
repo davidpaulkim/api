@@ -38,8 +38,6 @@ public class DeptController {
         return responseService.getSingleResult(deptService.insertDept(deptName));
     }
 
-
-
 //------------2
     // 2-1
     @ApiImplicitParams({
@@ -52,8 +50,6 @@ public class DeptController {
     public ListResult<Dept> findAllDept() {
         return responseService.getListResult(deptJpaRepo.findAll());
     }
-
-
 
 
 // -------------3
@@ -71,18 +67,20 @@ public class DeptController {
         return responseService.getSingleResult(deptService.findDept(deptName));
     }
 
-
-
-    /*@ApiImplicitParams({
+/*
+   @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
 
-    @ApiOperation(value = "역할 리스트", notes = "역할 리스트를 조회한다.")
-    @GetMapping(value = "/{deptName}/roles")
-    public ListResult<Role> rolesGet(@PathVariable String deptName) {
-        return responseService.getListResult(deptService.findRoles(deptName));
+    @ApiOperation(value = "부서에 속한 사용자 리스트", notes = "부서 사용자 리스트를 조회한다.")
+    @GetMapping(value = "/{deptName}/users")
+
+    public ListResult<User> usersGet(@PathVariable String deptName) {
+        return responseService.getListResult(deptService.findUsers(deptName));
     }
 */
+
+
    /* @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })

@@ -6,14 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Builder
 @Entity
@@ -28,9 +25,24 @@ public class Dept extends CommonDateEntity implements Serializable {
     @Column(nullable = false, length = 100)
     private String name;
 
-    // @ElementCollection(fetch = FetchType.EAGER)
-    @ManyToMany(mappedBy = "depts",cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "USER_DEPT",
+            joinColumns = {
+                    @JoinColumn(name = "deptID", referencedColumnName = "deptID")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "msrl", referencedColumnName = "msrl")
+            }
+    )
+
     private List<User> users = new ArrayList<>();
+
+
+    // @ElementCollection(fetch = FetchType.EAGER) @ElementCollection은 user-depts를 생성시킴
+
+/*    @ManyToMany(mappedBy = "depts",cascade=CascadeType.ALL)
+    private List<User> users = new ArrayList<>();*/
+
     /*private List<User> user;*/
 
 
