@@ -103,19 +103,16 @@ public class SignController {
                     .name(deptName).build());
         }
 
-
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-             //   .roles(Collections.singletonList("ROLE_USER"))
+                //   .roles(Collections.singletonList("ROLE_USER"))
 //                .roles(ImmutableList.of(role))
                 .roles(listrole)
                 //.depts()
+                // .depts(String deptName)
                 .build());
-
-
-
 
 
         return responseService.getSuccessResult();

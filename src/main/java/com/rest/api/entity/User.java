@@ -3,8 +3,10 @@ package com.rest.api.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rest.api.common.entity.CommonDateEntity;
+import com.rest.api.repo.DeptJpaRepo;
 import lombok.*;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.stat.internal.DeprecatedNaturalIdCacheStatisticsImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 @Table(name = "user") // 'user' 테이블과 매핑됨을 명시
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 @Proxy(lazy = false)
-public class User extends CommonDateEntity implements UserDetails {
+public class User<result> extends CommonDateEntity implements UserDetails {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msrl;
@@ -53,8 +55,10 @@ public class User extends CommonDateEntity implements UserDetails {
                     @JoinColumn(name = "deptID", referencedColumnName = "deptID")
             }
     )
+
     private List<Dept> depts = new ArrayList<>();
     /*private List<Dept> deptList;*/
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

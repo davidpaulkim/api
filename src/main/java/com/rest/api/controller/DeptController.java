@@ -6,6 +6,8 @@ import com.rest.api.model.dept.ParamsRole;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
+import com.rest.api.repo.DeptJpaRepo;
+import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.ResponseService;
 import com.rest.api.service.DeptService;
 import io.swagger.annotations.Api;
@@ -26,9 +28,11 @@ import javax.validation.Valid;
 public class DeptController {
 
     private final DeptService deptService;
+    private final DeptJpaRepo deptJpaRepo;
     private final ResponseService responseService;
 
-    @ApiImplicitParams({
+
+   @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "부서 생성", notes = "신규 부서를 생성한다.")
@@ -38,26 +42,26 @@ public class DeptController {
         return responseService.getSingleResult(deptService.insertDept(deptName));
     }
 
-
     /*@ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
 */
-    /*@ApiOperation(value = "부서 리스트 조회", notes = "부서 리스트를 조회한다.")
-    @GetMapping(value = "/{uid}")
-    public ListResult<Dept> deptsGet(@PathVariable String uid) {
-        return responseService.getListResult(deptService.findDepts(uid));
-    }*/
+    @ApiOperation(value = "부서 리스트 조회", notes = "부서 리스트를 조회한다.")
+    @GetMapping(value = "/depts")
+    public ListResult<Dept> findAllDept() {
+        return responseService.getListResult(deptJpaRepo.findAll());
+    }
 
-    @ApiImplicitParams({
+/*   @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-    })
-
+    })*/
     @ApiOperation(value = "부서 정보 조회", notes = "부서 정보를 조회한다.")
     @GetMapping(value = "/{deptName}")
     public SingleResult<Dept> deptGet(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.findDept(deptName));
     }
+
+
 
     /*@ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
@@ -67,8 +71,8 @@ public class DeptController {
     @GetMapping(value = "/{deptName}/roles")
     public ListResult<Role> rolesGet(@PathVariable String deptName) {
         return responseService.getListResult(deptService.findRoles(deptName));
-    }*/
-
+    }
+*/
    /* @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
