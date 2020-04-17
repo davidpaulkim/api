@@ -1,9 +1,11 @@
 package com.rest.api.controller;
 
 import com.rest.api.entity.Dept;
+import com.rest.api.entity.User;
 import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
 import com.rest.api.repo.DeptJpaRepo;
+import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.DeptService;
 import com.rest.api.service.ResponseService;
 import io.swagger.annotations.Api;
@@ -23,6 +25,7 @@ public class DeptController {
 
     private final DeptService deptService;
     private final DeptJpaRepo deptJpaRepo;
+    private final UserJpaRepo userJpaRdpo;
     private final ResponseService responseService;
 
    //-------------1
@@ -67,7 +70,7 @@ public class DeptController {
         return responseService.getSingleResult(deptService.findDept(deptName));
     }
 
-/*
+
    @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
@@ -76,9 +79,9 @@ public class DeptController {
     @GetMapping(value = "/{deptName}/users")
 
     public ListResult<User> usersGet(@PathVariable String deptName) {
-        return responseService.getListResult(deptService.findUsers(deptName));
+        return responseService.getListResult(deptJpaRepo.findByName(deptName).getHavingUsers());
     }
-*/
+
 
 
    /* @ApiImplicitParams({

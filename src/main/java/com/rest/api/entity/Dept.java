@@ -2,7 +2,6 @@ package com.rest.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.api.common.entity.CommonDateEntity;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +15,13 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 public class Dept extends CommonDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deptID;
+
     @Column(nullable = false, length = 100)
     private String name;
 
@@ -35,7 +35,14 @@ public class Dept extends CommonDateEntity implements Serializable {
             }
     )
 
-    private List<User> users = new ArrayList<>();
+    private List<User> havingUsers = new ArrayList<>();
+
+
+    public Dept(Long deptID, String name, List<User> havingUsers) {
+        this.deptID = deptID;
+        this.name = name;
+        this.havingUsers = havingUsers;
+    }
 
 
     // @ElementCollection(fetch = FetchType.EAGER) @ElementCollection은 user-depts를 생성시킴

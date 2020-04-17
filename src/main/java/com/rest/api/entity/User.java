@@ -45,8 +45,12 @@ public class User extends CommonDateEntity implements UserDetails {
     /*@ManyToMany(mappedBy = "users")
     private List<Dept> depts = new ArrayList<>();*/
 
-    @ManyToMany(mappedBy = "users",cascade=CascadeType.ALL)
-    private List<Dept> depts = new ArrayList<>();
+    @ManyToMany(mappedBy = "havingUsers",cascade=CascadeType.ALL)
+    private List<Dept> deptProfiles = new ArrayList<>();
+
+    
+
+    /*List<Dept> result = deptJpaRepo.getUserWithDeptCount("")*/
 
     /*@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
