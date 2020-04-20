@@ -73,7 +73,7 @@ public class SignController {
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
     }
-    
+
     /*
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
     @PostMapping(value = "/signup")
@@ -98,6 +98,7 @@ public class SignController {
                                @ApiParam(value = "이름", required = true) @RequestParam String name,
                                @ApiParam(value = "부서", required = true) @RequestParam String deptName,
                                @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
+
 
         Optional<Dept> result = Optional.ofNullable(deptJpaRepo.findByName(deptName));
         if (result.isPresent()) {
