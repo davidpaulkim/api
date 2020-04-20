@@ -67,7 +67,7 @@ public class SignController {
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
-    }
+    }   ` `
 /*
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
     @PostMapping(value = "/signup")
@@ -101,18 +101,10 @@ public class SignController {
                     .detpNname(deptName).build());
         }
 
-        userJpaRepo.save(User.builder()
-                .uid(id)
-                .password(passwordEncoder.encode(password))
-                .name(name)
-                //   .roles(Collections.singletonList("ROLE_USER"))
-//                .roles(ImmutableList.of(role))
-                .roles(listrole)
-                //.depts()
-                // .depts(String deptName)
-                .build());
+        User user;
+        user = new User(id, password, name, deptJpaRepo.findByName(deptName), listrole);
 
-
+        userJpaRepo.save(user);
         return responseService.getSuccessResult();
     }
 

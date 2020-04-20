@@ -45,7 +45,12 @@ public class User extends CommonDateEntity implements UserDetails {
     /*@ManyToMany(mappedBy = "users")
     private List<Dept> depts = new ArrayList<>();*/
 
-/*
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "deptID")
+    private Dept dept;
+
+
     @ManyToMany(mappedBy = "havingUsers",cascade=CascadeType.ALL)
     private List<Dept> deptProfiles = new ArrayList<>();
 */
@@ -72,6 +77,14 @@ public class User extends CommonDateEntity implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+    public User(String id, String password, String name, Dept byName, List<String> listrole) {
+        this.uid = id;
+        this.password = password;
+        this.name = name;
+        this.dept = byName;
+        this.roles = listrole;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
