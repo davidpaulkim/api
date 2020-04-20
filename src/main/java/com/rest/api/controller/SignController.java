@@ -52,10 +52,15 @@ public class SignController {
                                        @ApiParam(value = "비밀번호", required = true) @RequestParam String password) {
 
         User user = userJpaRepo.findByUid(id).orElseThrow(CEmailSigninFailedException::new);
-        if (!passwordEncoder.matches(password, user.getPassword()))
+        System.out.println("password:" + password);
+        System.out.println("password2:" + user.getPassword());
+        if (!passwordEncoder.matches(password, "{noop}" + user.getPassword())) {
+            System.out.println("password mismatch");
             throw new CEmailSigninFailedException();
-
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+        } else {
+            System.out.println("password OK");
+            return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+        }
     }
 
     @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
@@ -67,8 +72,9 @@ public class SignController {
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
-    }   ` `
-/*
+    }
+    
+    /*
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
     @PostMapping(value = "/signup")
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,

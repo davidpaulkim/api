@@ -78,12 +78,18 @@ public class User extends CommonDateEntity implements UserDetails {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    public User(String id, String password, String name, Dept byName, List<String> listrole) {
+    public User(String id, String password, String name, Dept dept, List<String> listrole) {
+        System.out.println("USER");
         this.uid = id;
+        System.out.println("id" + id);
         this.password = password;
+        System.out.println("password" + password);
         this.name = name;
-        this.dept = byName;
+        System.out.println("name" + name);
+        this.dept = dept;
+        System.out.println("dept" + dept);
         this.roles = listrole;
+        System.out.println("listrole" + listrole);
     }
 
     @Override
