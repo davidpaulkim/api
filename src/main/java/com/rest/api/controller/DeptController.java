@@ -77,9 +77,8 @@ public class DeptController {
 
     @ApiOperation(value = "부서에 속한 사용자 리스트", notes = "부서 사용자 리스트를 조회한다.")
     @GetMapping(value = "/{deptName}/users")
-
     public ListResult<User> usersGet(@PathVariable String deptName) {
-        return responseService.getListResult(deptJpaRepo.findByName(deptName).getHavingUsers());
+       return responseService.getListResult(deptJpaRepo.findByName(deptName).getHavingUsers());
     }
 
 

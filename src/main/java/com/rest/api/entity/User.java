@@ -53,23 +53,67 @@ public class User extends CommonDateEntity implements UserDetails {
 
     @ManyToMany(mappedBy = "havingUsers",cascade=CascadeType.ALL)
     private List<Dept> deptProfiles = new ArrayList<>();
-*/
 
     
 
     /*List<Dept> result = deptJpaRepo.getUserWithDeptCount("")*/
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    /*@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
-            name = "user_dept",
+            name = "DEPT_USER",
             joinColumns = {
-                    @JoinColumn(name = "user_id", referencedColumnName = "msrl")},
+                    @JoinColumn(name = "msrl", referencedColumnName = "msrl")},
             inverseJoinColumns = {
-                    @JoinColumn(name = "dept_id", referencedColumnName = "deptID")
+                    @JoinColumn(name = "deptID", referencedColumnName = "deptID")
             }
     )
-
-    private List<Dept> deptProfiles = new ArrayList<>();
+                                  this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }      this.uid = uid;
+         this.password   = password;
+         this.name = name;
+         this.dept = dept;
+         this.roles = listrole;
+    }
+    private List<Dept> depts = new ArrayList<>();*/
 
     /*private List<Dept> deptList;*/
 
