@@ -16,6 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @Api(tags = {"2. User"})
 @RequiredArgsConstructor
 @RestController
@@ -73,19 +76,36 @@ public class UserController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "회원 부서/역할 수정", notes = "회원부서/역할을 수정한다")
-    @PutMapping(value = "/user/dept/rols")
-    public SingleResult<User> modifyroles(
-            @ApiParam(value = "이름", required = true) @RequestParam String uid,
+    @PutMapping(value = "/user/dept/roles")
+    public CommonResult insertRoles(
+            @ApiParam(value = "이메일", required = true) @RequestParam String uid,
+            @ApiParam(value = "이름", required = true) @RequestParam String name,
             @ApiParam(value = "부서", required = true) @RequestParam String deptName,
-            @ApiParam(value = "역할", required = true) @RequestParam String rolelist
+            @ApiParam(value = "역할", required = true) @RequestParam List<String> rolelist
     ) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
-        User user = userJpaRepo.findByUid(id).orElseThrow(CUserNotFoundException::new);
-        Dept dept = deptJpaRepo.findByDeptID();
-        user.setUid(email);
-        return responseService.getSingleResult(userJpaRepo.save(user));
+        Optional<Dept> dept = Optional.ofNullable(deptJpaRepo.findByName(deptName));
+        if (dept.isPresent()) {
+            System.out.println("기존 부서가 있음");
+        } else {
+            System.out.println("기존 부서가 없음");
+            deptJpaRepo.save(Dept.builder()
+                    .name(deptName).build());
+        }
+
+        Optional<Optional<User>> user = Optional.ofNullable(userJpaRepo.findByUid(uid));
+        if (user.isPresent()) {
+            System.out.println("기존 사용자가 있음");
+            userJpaRepo.save(User.builder()
+                    .uid(uid)
+                    .name(name)
+                    .dept(deptJpaRepo.findByName(deptName))
+                    .roles(rolelist)
+                    .build());
+        } else {
+            System.out.println("기존 사용자가 없음");
+        }
+        return responseService.getSuccessResult();
     }
 
 
