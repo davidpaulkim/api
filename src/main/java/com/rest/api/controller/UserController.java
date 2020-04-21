@@ -1,10 +1,12 @@
 package com.rest.api.controller;
 
 import com.rest.api.common.CUserNotFoundException;
+import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
+import com.rest.api.repo.DeptJpaRepo;
 import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.ResponseService;
 import io.swagger.annotations.*;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserJpaRepo userJpaRepo;
+    private final DeptJpaRepo deptJpaRepo;
     private final ResponseService responseService; // 결과를 처리할 Service
 
     @ApiImplicitParams({
@@ -51,17 +54,40 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "회원 수정", notes = "회원정보를 수정한다")
+    @ApiOperation(value = "회원 이름/메일 수정", notes = "회원정보를 수정한다")
     @PutMapping(value = "/user")
     public SingleResult<User> modify(
-            @ApiParam(value = "회원이름", required = true) @RequestParam String name) {
+            @ApiParam(value = "회원이름", required = true) @RequestParam String name,
+            @ApiParam(value = "회원이메일", required = true) @RequestParam String email
+    ) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         User user = userJpaRepo.findByUid(id).orElseThrow(CUserNotFoundException::new);
         user.setName(name);
+        user.setUid(email);
         return responseService.getSingleResult(userJpaRepo.save(user));
     }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "회원 부서/역할 수정", notes = "회원부서/역할을 수정한다")
+    @PutMapping(value = "/user/dept/rols")
+    public SingleResult<User> modifyroles(
+            @ApiParam(value = "이름", required = true) @RequestParam String uid,
+            @ApiParam(value = "부서", required = true) @RequestParam String deptName,
+            @ApiParam(value = "역할", required = true) @RequestParam String rolelist
+    ) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        User user = userJpaRepo.findByUid(id).orElseThrow(CUserNotFoundException::new);
+        Dept dept = deptJpaRepo.findByDeptID();
+        user.setUid(email);
+        return responseService.getSingleResult(userJpaRepo.save(user));
+    }
+
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
