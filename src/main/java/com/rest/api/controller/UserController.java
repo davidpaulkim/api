@@ -9,6 +9,7 @@ import com.rest.api.model.response.SingleResult;
 import com.rest.api.repo.DeptJpaRepo;
 import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.ResponseService;
+import com.rest.api.service.UserService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +26,7 @@ import java.util.Optional;
 @RequestMapping(value = "/api")
 // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 @PreAuthorize("hasRole('ROLE_USER')")
+
 public class UserController {
 
     private final UserJpaRepo userJpaRepo;
@@ -41,6 +43,7 @@ public class UserController {
         return responseService.getListResult(userJpaRepo.findAll());
     }
 
+
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
@@ -53,6 +56,7 @@ public class UserController {
         // 결과데이터가 단일건인경우 getSingleResult를 이용해서 결과를 출력한다.
         return responseService.getSingleResult(userJpaRepo.findByUid(id).orElseThrow(CUserNotFoundException::new));
     }
+
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
@@ -72,12 +76,13 @@ public class UserController {
         return responseService.getSingleResult(userJpaRepo.save(user));
     }
 
+
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "회원 부서/역할 수정", notes = "회원부서/역할을 수정한다")
     @PutMapping(value = "/user/dept/roles")
-    public CommonResult insertRoles(
+    public SingleResult updateDeptRoles(
             @ApiParam(value = "이메일", required = true) @RequestParam String uid,
             @ApiParam(value = "이름", required = true) @RequestParam String name,
             @ApiParam(value = "부서", required = true) @RequestParam String deptName,
@@ -96,16 +101,18 @@ public class UserController {
         Optional<Optional<User>> user = Optional.ofNullable(userJpaRepo.findByUid(uid));
         if (user.isPresent()) {
             System.out.println("기존 사용자가 있음");
-            userJpaRepo.save(User.builder()
+            /*userJpaRepo.save(User.builder()
                     .uid(uid)
                     .name(name)
                     .dept(deptJpaRepo.findByName(deptName))
                     .roles(rolelist)
-                    .build());
-        } else {
-            System.out.println("기존 사용자가 없음");
+                    .build());*/
+
+            return responseService.getSingleResult(UserService.updateUser(uid, name, deptName, rolelist));
+
         }
-        return responseService.getSuccessResult();
+
+        return null;
     }
 
 
