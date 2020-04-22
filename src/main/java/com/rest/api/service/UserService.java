@@ -28,7 +28,7 @@ public class UserService {
 
     private final CacheSevice cacheSevice;
 
-    public User updateUser(String uid, String name, String deptName, List<String> rolelist) {
+    public User updateUser(String uid, String name, String deptname, List<String> rolelist) {
        /*      Optional<User> user = userJpaRepo.findByUid(uid);
              if (!uid.equals(user.getUid(uid)))
                 throw new CNotOwnerException();
@@ -37,8 +37,8 @@ public class UserService {
         System.out.println("uid:" + uid);
         User user = getUser(uid);
         System.out.println("user:" + user);
-        System.out.println("deptName:" + deptName);
-        Dept dept = deptJpaRepo.findByName(deptName);
+        System.out.println("deptName:" + deptname);
+        Dept dept = deptJpaRepo.findByName(deptname);
         System.out.println("dept:" + dept);
         user.setUpdate(name, dept, rolelist);
         System.out.println("user:" + user);

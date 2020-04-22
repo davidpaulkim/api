@@ -159,51 +159,7 @@ public class User extends CommonDateEntity implements UserDetails {
                     @JoinColumn(name = "deptID", referencedColumnName = "deptID")
             }
     )
-                                  this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
-    }      this.uid = uid;
-         this.password   = password;
-         this.name = name;
-         this.dept = dept;
-         this.roles = listrole;
+
     }
     private List<Dept> depts = new ArrayList<>();*/
 

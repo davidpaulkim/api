@@ -105,7 +105,7 @@ public class SignController {
             System.out.println("기존 부서가 있음");
         } else {
             deptJpaRepo.save(Dept.builder()
-                    .detpNname(deptName).build());
+                    .name(deptName).build());
         }
 
         User user;

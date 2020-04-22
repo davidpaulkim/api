@@ -2,7 +2,6 @@ package com.rest.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.api.common.entity.CommonDateEntity;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 public class Dept extends CommonDateEntity implements Serializable {
@@ -24,8 +23,8 @@ public class Dept extends CommonDateEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deptID;
 
-    @Column(nullable = false, length = 100)
-    private String detpNname;
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
 
    /* @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
@@ -42,30 +41,30 @@ public class Dept extends CommonDateEntity implements Serializable {
 
     // @ElementCollection(fetch = FetchType.EAGER) @ElementCollection은 user-depts를 생성시킴
 
-    @ManyToMany(mappedBy = "deptProfiles", cascade = CascadeType.ALL)
-    private List<User> havingUsers = new ArrayList<>();
+    //@ManyToMany(mappedBy = "deptProfiles", cascade = CascadeType.ALL)
+    //private List<User> havingUsers = new ArrayList<>();
 
     /*private List<User> user;*/
 
 
     public Dept(Long deptID, String name, List<User> havingUsers) {
         this.deptID = deptID;
-        this.detpNname = name;
+        this.name = name;
         this.havingUsers = havingUsers;
     }
 
 
 
 
-/*
+
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name = "DEPT_USER",
             joinColumns = @JoinColumn(name = "dept_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users = new ArrayList<>();
-*/
+    private List<User> havingUsers = new ArrayList<>();
+
 
 
  /*
