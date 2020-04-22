@@ -122,14 +122,14 @@ public class User extends CommonDateEntity implements UserDetails {
     }
 
 
-    public void setUpdate(String uid, String name, String deptName, List<String> rolelist) {
+    public void setUpdate(String name, Dept dept, List<String> rolelist) {
         this.name = name;
         System.out.println("name:" + name);
         this.dept = dept;
-        System.out.println("dept" + dept);
+//        System.out.println("dept" + dept);
         List<String> roleliste;
         this.roles = rolelist;
-        System.out.println("rolelist" + rolelist);
+//
     }
 
 

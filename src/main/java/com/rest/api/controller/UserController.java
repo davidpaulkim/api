@@ -1,5 +1,6 @@
 package com.rest.api.controller;
 
+import com.rest.api.common.CNotOwnerException;
 import com.rest.api.common.CUserNotFoundException;
 import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
@@ -12,7 +13,6 @@ import com.rest.api.service.ResponseService;
 import com.rest.api.service.UserService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +25,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/api")
 // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-@PreAuthorize("hasRole('ROLE_USER')")
+//@PreAuthorize("hasRole('ROLE_USER')")
 
 public class UserController {
 
     private final UserJpaRepo userJpaRepo;
     private final DeptJpaRepo deptJpaRepo;
+    private final UserService userservice;
     private final ResponseService responseService; // 결과를 처리할 Service
 
     @ApiImplicitParams({
@@ -70,9 +71,10 @@ public class UserController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
+        System.out.println("id:" + id);
         User user = userJpaRepo.findByUid(id).orElseThrow(CUserNotFoundException::new);
         user.setName(name);
-        user.setUid(email);
+
         return responseService.getSingleResult(userJpaRepo.save(user));
     }
 
@@ -107,12 +109,12 @@ public class UserController {
                     .dept(deptJpaRepo.findByName(deptName))
                     .roles(rolelist)
                     .build());*/
-
-            return responseService.getSingleResult(UserService.updateUser(uid, name, deptName, rolelist));
-
+            return responseService.getSingleResult(userservice.updateUser(uid, name, deptName, rolelist));
+        } else {
+            throw new CNotOwnerException();
         }
 
-        return null;
+
     }
 
 
@@ -122,7 +124,7 @@ public class UserController {
     @ApiOperation(value = "회원 삭제", notes = "회원번호(msrl)로 회원정보를 삭제한다")
     @DeleteMapping(value = "/user/{msrl}")
     public CommonResult delete(
-            @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
+            @ApiParam(value = "회원번호", required = true) @PathVariable Long msrl) {
         userJpaRepo.deleteById(msrl);
         // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
         return responseService.getSuccessResult();

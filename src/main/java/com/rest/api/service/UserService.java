@@ -1,6 +1,7 @@
 package com.rest.api.service;
 
 import com.rest.api.common.CResourceNotExistException;
+import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
 import com.rest.api.repo.DeptJpaRepo;
 import com.rest.api.repo.UserJpaRepo;
@@ -19,27 +20,34 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class UserService {
-    private static UserJpaRepo userJpaRepo;
+
+    private final UserJpaRepo userJpaRepo;
     private final DeptJpaRepo deptJpaRepo;
 
     /*private final RoleJpaRepo roleJpaRepo;*/
 
     private final CacheSevice cacheSevice;
 
-    public static User updateUser(String uid, String name, String deptName, List<String> rolelist) {
+    public User updateUser(String uid, String name, String deptName, List<String> rolelist) {
        /*      Optional<User> user = userJpaRepo.findByUid(uid);
              if (!uid.equals(user.getUid(uid)))
                 throw new CNotOwnerException();
 */
         // 영속성 컨텍스트의 변경감지(dirty checking) 기능에 의해 조회한 Post내용을 변경만 해도 Update쿼리가 실행됩니다.
+        System.out.println("uid:" + uid);
         User user = getUser(uid);
-        user.setUpdate(uid, name, deptName, rolelist);
-        return user;
+        System.out.println("user:" + user);
+        System.out.println("deptName:" + deptName);
+        Dept dept = deptJpaRepo.findByName(deptName);
+        System.out.println("dept:" + dept);
+        user.setUpdate(name, dept, rolelist);
+        System.out.println("user:" + user);
+        return userJpaRepo.save(user);
     }
 
     // 부서 이름으로 부서을 조회. 없을경우 CResourceNotExistException 처리
 //    @Cacheable(value = CacheKey.Dept, key = "#deptName", unless = "#result == null")
-    public static User getUser(String uid) {
+    public User getUser(String uid) {
         return userJpaRepo.findByUid(uid).orElseThrow(CResourceNotExistException::new);
 
 
