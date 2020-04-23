@@ -4,8 +4,6 @@ import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
-import com.rest.api.repo.DeptJpaRepo;
-import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.DeptService;
 import com.rest.api.service.ResponseService;
 import io.swagger.annotations.Api;
@@ -24,8 +22,6 @@ import org.springframework.web.bind.annotation.*;
 public class DeptController {
 
     private final DeptService deptService;
-    private final DeptJpaRepo deptJpaRepo;
-    private final UserJpaRepo userJpaRdpo;
     private final ResponseService responseService;
 
    //-------------1
@@ -51,7 +47,7 @@ public class DeptController {
     @GetMapping(value = "/depts")
             //2-3
     public ListResult<Dept> findAllDept() {
-        return responseService.getListResult(deptJpaRepo.findAll());
+        return responseService.getListResult(deptService.findDepts());
     }
 
 
@@ -77,10 +73,14 @@ public class DeptController {
 
     @ApiOperation(value = "부서에 속한 사용자 리스트", notes = "부서 사용자 리스트를 조회한다.")
     @GetMapping(value = "/{deptName}/users")
-    public ListResult<User> usersGet(@PathVariable String deptName) {
-       System.out.println("dept:" + deptJpaRepo.findByName(deptName));
-       return responseService.getListResult(deptJpaRepo.findByName(deptName).getHavingUsers());
-    }
+   public ListResult<User> userlist(@PathVariable String deptName) {
+       return responseService.getListResult(deptService.findDeptUsers(deptName));
+       /*System.out.println("dept:" + deptJpaRepo.findByName(deptName));
+       List<User> users = deptJpaRepo.findByName(deptName).getHavingUsers();
+       users.forEach(usr-> {
+           usr.
+       }*/
+   }
 
 
 

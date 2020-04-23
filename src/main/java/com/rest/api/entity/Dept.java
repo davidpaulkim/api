@@ -54,9 +54,6 @@ public class Dept extends CommonDateEntity implements Serializable {
     }
 
 
-
-
-
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name = "DEPT_USER",
@@ -65,9 +62,10 @@ public class Dept extends CommonDateEntity implements Serializable {
     )
     private List<User> havingUsers = new ArrayList<>();
 
-
-
- /*
+    public void setHavingUsers(List<User> havingUsers) {
+        this.havingUsers = havingUsers;
+    }
+/*
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_dept", joinColumns = {
             @JoinColumn(name = "deptId"},

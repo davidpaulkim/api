@@ -2,6 +2,7 @@ package com.rest.api.service;
 
 import com.rest.api.common.CResourceNotExistException;
 import com.rest.api.entity.Dept;
+import com.rest.api.entity.User;
 import com.rest.api.repo.DeptJpaRepo;
 import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.cache.CacheSevice;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 /*import com.rest.api.repo.RoleJpaRepo;*/
@@ -21,9 +23,19 @@ import java.util.Optional;
 public class DeptService {
 
     private final DeptJpaRepo deptJpaRepo;
-    /*private final RoleJpaRepo roleJpaRepo;*/
     private final UserJpaRepo userJpaRepo;
+    /*private final RoleJpaRepo roleJpaRepo;*/
+
     private final CacheSevice cacheSevice;
+
+    public List<User> findDeptUsers(String deptName) {
+        return userJpaRepo.findByDeptOrderByMsrlDesc(findDept(deptName));
+    }
+
+    public List<Dept> findDepts() {
+        return deptJpaRepo.findAll();
+    }
+
 
     public Dept insertDept(String deptName) {
         return deptJpaRepo.save(Dept.builder().name(deptName).build());

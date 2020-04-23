@@ -10,4 +10,5 @@ public interface DeptJpaRepo extends JpaRepository<Dept, Long> {
     Dept findByName(String name);
     Dept findByDeptID(long deptID);
     List<Dept> findAllBy();
+
 }

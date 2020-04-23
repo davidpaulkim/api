@@ -21,6 +21,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,7 +111,12 @@ public class SignController {
 
         User user;
         user = new User(id, password, name, deptJpaRepo.findByName(deptName), listrole);
-
+        //System.out.println("user:"+user);
+        List<User> users = new ArrayList();
+        users.add(user);
+        System.out.println("user list" + users);
+        deptJpaRepo.findByName(deptName).setHavingUsers(users);
+        //System.out.println("before save");
         userJpaRepo.save(user);
         return responseService.getSuccessResult();
     }
