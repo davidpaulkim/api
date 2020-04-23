@@ -110,12 +110,23 @@ public class SignController {
         }
 
         User user;
-        user = new User(id, password, name, deptJpaRepo.findByName(deptName), listrole);
+        Dept dept;
+
+        user = new User(id, password, name, deptName, listrole);
         //System.out.println("user:"+user);
         List<User> users = new ArrayList();
+        users = deptJpaRepo.findByName(deptName).getUsers();
         users.add(user);
+
+
+        dept = deptJpaRepo.findByName(deptName);
+        List<Dept> depts;
+
+        depts = user.getDepts();
+        depts.add(dept);
+
         System.out.println("user list" + users);
-        deptJpaRepo.findByName(deptName).setHavingUsers(users);
+        deptJpaRepo.findByName(deptName).setusers(users);
         //System.out.println("before save");
         userJpaRepo.save(user);
         return responseService.getSuccessResult();

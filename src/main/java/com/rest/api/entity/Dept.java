@@ -1,6 +1,5 @@
 package com.rest.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.api.common.entity.CommonDateEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 //@AllArgsConstructor
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 public class Dept extends CommonDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,23 +35,17 @@ public class Dept extends CommonDateEntity implements Serializable {
             }
     )
 
-    private List<User> havingUsers = new ArrayList<>();*/
+    private List<User> users = new ArrayList<>();*/
 
 
     // @ElementCollection(fetch = FetchType.EAGER) @ElementCollection은 user-depts를 생성시킴
 
-    //@ManyToMany(mappedBy = "deptProfiles", cascade = CascadeType.ALL)
-    //private List<User> havingUsers = new ArrayList<>();
+    //@ManyToMany(mappedBy = "detps", cascade = CascadeType.ALL)
+    //private List<User> users = new ArrayList<>();
 
     /*private List<User> user;*/
 
-
-    public Dept(Long deptID, String name, List<User> havingUsers) {
-        this.deptID = deptID;
-        this.name = name;
-        this.havingUsers = havingUsers;
-    }
-
+    // @JsonIgnore
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
@@ -60,10 +53,17 @@ public class Dept extends CommonDateEntity implements Serializable {
             joinColumns = @JoinColumn(name = "dept_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> havingUsers = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
-    public void setHavingUsers(List<User> havingUsers) {
-        this.havingUsers = havingUsers;
+
+    public Dept(Long deptID, String name, List<User> users) {
+        this.deptID = deptID;
+        this.name = name;
+        this.users = users;
+    }
+
+    public void setusers(List<User> users) {
+        this.users = users;
     }
 /*
     @ManyToMany(fetch = FetchType.EAGER)

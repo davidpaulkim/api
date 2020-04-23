@@ -1,7 +1,6 @@
 package com.rest.api.service;
 
 import com.rest.api.common.CResourceNotExistException;
-import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
 import com.rest.api.repo.DeptJpaRepo;
 import com.rest.api.repo.UserJpaRepo;
@@ -38,9 +37,7 @@ public class UserService {
         User user = getUser(uid);
         System.out.println("user:" + user);
         System.out.println("deptName:" + deptname);
-        Dept dept = deptJpaRepo.findByName(deptname);
-        System.out.println("dept:" + dept);
-        user.setUpdate(name, dept, rolelist);
+        user.setUpdate(name, deptname, rolelist);
         System.out.println("user:" + user);
         return userJpaRepo.save(user);
     }
@@ -63,7 +60,7 @@ public class UserService {
 /*
     // @Cacheable(value = CacheKey.ROLES, key = "#deptName", unless = "#result == null")
     public List<Role> findRoles(String deptName) {
-        return roleJpaRepo.findByDeptOrderByRoleIdDesc(findDept(deptName));
+        return roleJpaRepo.findByDeptNameOrderByRoleIdDesc(findDept(deptName));
     }
     // 부서 이름으로 역할 리스트 조회.
 

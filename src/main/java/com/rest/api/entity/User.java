@@ -42,72 +42,13 @@ public class User extends CommonDateEntity implements UserDetails {
     @Column(length = 100)
      private String provider;
 
+    String deptName;
 
-    public Long getMsrl() {
-        return msrl;
-    }
 
-    public void setMsrl(Long msrl) {
-        this.msrl = msrl;
-    }
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Dept> depts = new ArrayList<>();
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
-        this.provider = provider;
-    }
-
-    public Dept getDept() {
-        return dept;
-    }
-
-    public void setDept(Dept dept) {
-        this.dept = dept;
-    }
-
-    public List<Dept> getDeptProfiles() {
-        return deptProfiles;
-    }
-
-    public void setDeptProfiles(List<Dept> deptProfiles) {
-        this.deptProfiles = deptProfiles;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public User(String id, String password, String name, Dept dept, List<String> listrole) {
+    public User(String id, String name, String password, String deptName, List<String> listrole) {
         System.out.println("USER");
         this.uid = id;
         System.out.println("id" + id);
@@ -115,17 +56,20 @@ public class User extends CommonDateEntity implements UserDetails {
         System.out.println("password" + password);
         this.name = name;
         System.out.println("name" + name);
-        this.dept = dept;
-        System.out.println("dept" + dept);
+        this.deptName = deptName;
+        System.out.println("deptname" + deptName);
         this.roles = listrole;
         System.out.println("listrole" + listrole);
     }
 
+    public List<Dept> getDepts() {
+        return depts;
+    }
 
-    public void setUpdate(String name, Dept dept, List<String> rolelist) {
+    public void setUpdate(String name, String deptName, List<String> rolelist) {
         this.name = name;
         System.out.println("name:" + name);
-        this.dept = dept;
+        this.deptName = deptName;
 //        System.out.println("dept" + dept);
         List<String> roleliste;
         this.roles = rolelist;
@@ -137,14 +81,12 @@ public class User extends CommonDateEntity implements UserDetails {
     /*@ManyToMany(mappedBy = "users")
     private List<Dept> depts = new ArrayList<>();*/
 
+/*
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deptID")
     private Dept dept;
-
-
-    @ManyToMany(mappedBy = "havingUsers",cascade=CascadeType.ALL)
-    private List<Dept> deptProfiles = new ArrayList<>();
+*/
 
 
 

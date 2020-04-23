@@ -29,7 +29,8 @@ public class DeptService {
     private final CacheSevice cacheSevice;
 
     public List<User> findDeptUsers(String deptName) {
-        return userJpaRepo.findByDeptOrderByMsrlDesc(findDept(deptName));
+        System.out.println("---------------3:findusers:" + userJpaRepo.findByDeptNameOrderByMsrlDesc(deptName));
+        return userJpaRepo.findByDeptNameOrderByMsrlDesc(deptName);
     }
 
     public List<Dept> findDepts() {
@@ -43,7 +44,9 @@ public class DeptService {
 
     // 부서 이름으로 부서을 조회. 없을경우 CResourceNotExistException 처리
 //    @Cacheable(value = CacheKey.Dept, key = "#deptName", unless = "#result == null")
+
     public Dept findDept(String deptName) {
+        System.out.println("1-----dept:" + deptJpaRepo.findByName(deptName));
         return Optional.ofNullable(deptJpaRepo.findByName(deptName)).orElseThrow(CResourceNotExistException::new);
     }
 
@@ -57,7 +60,7 @@ public class DeptService {
 /*
     // @Cacheable(value = CacheKey.ROLES, key = "#deptName", unless = "#result == null")
     public List<Role> findRoles(String deptName) {
-        return roleJpaRepo.findByDeptOrderByRoleIdDesc(findDept(deptName));
+        return roleJpaRepo.findByDeptNameOrderByRoleIdDesc(findDept(deptName));
     }
     // 부서 이름으로 역할 리스트 조회.
 
