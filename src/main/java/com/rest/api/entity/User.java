@@ -45,6 +45,10 @@ public class User extends CommonDateEntity implements UserDetails {
     String deptName;
 
 
+    public void setDepts(List<Dept> depts) {
+        this.depts = depts;
+    }
+
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Dept> depts = new ArrayList<>();
 

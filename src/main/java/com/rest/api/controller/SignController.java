@@ -100,6 +100,8 @@ public class SignController {
                                @ApiParam(value = "부서", required = true) @RequestParam String deptName,
                                @ApiParam(value = "역할", required = true) @RequestParam List<String> listrole) {
 
+        Dept dept;
+        User user;
 
         Optional<Dept> result = Optional.ofNullable(deptJpaRepo.findByName(deptName));
         if (result.isPresent()) {
@@ -109,26 +111,25 @@ public class SignController {
                     .name(deptName).build());
         }
 
-        User user;
-        Dept dept;
+        user = new User(id, name, password, deptName, listrole);
 
-        user = new User(id, password, name, deptName, listrole);
-        //System.out.println("user:"+user);
         List<User> users = new ArrayList();
         users = deptJpaRepo.findByName(deptName).getUsers();
+        //System.out.println("user:"+user);
         users.add(user);
-
+        deptJpaRepo.findByName(deptName).setusers(users);
 
         dept = deptJpaRepo.findByName(deptName);
         List<Dept> depts;
-
         depts = user.getDepts();
         depts.add(dept);
+        user.setDepts(depts);
 
         System.out.println("user list" + users);
         deptJpaRepo.findByName(deptName).setusers(users);
         //System.out.println("before save");
         userJpaRepo.save(user);
+
         return responseService.getSuccessResult();
     }
 

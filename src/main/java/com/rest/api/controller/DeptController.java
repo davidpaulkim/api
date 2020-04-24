@@ -4,6 +4,8 @@ import com.rest.api.entity.Dept;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
+import com.rest.api.repo.DeptJpaRepo;
+import com.rest.api.repo.UserJpaRepo;
 import com.rest.api.service.DeptService;
 import com.rest.api.service.ResponseService;
 import io.swagger.annotations.Api;
@@ -13,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /*import com.rest.api.entity.Role;*/
 
 @Api(tags = {"3. Dept"})
@@ -21,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/dept")
 public class DeptController {
 
+    private final UserJpaRepo userJpaRepo;
+    private final DeptJpaRepo deptJpaRepo;
     private final DeptService deptService;
     private final ResponseService responseService;
 
@@ -74,8 +80,14 @@ public class DeptController {
     @ApiOperation(value = "부서에 속한 사용자 리스트", notes = "부서 사용자 리스트를 조회한다.")
     @GetMapping(value = "/{deptName}/users")
    public ListResult<User> userlist(@PathVariable String deptName) {
-       System.out.println("0---------------findDeptUsers:" + deptService.findDeptUsers(deptName));
-       return responseService.getListResult(deptService.findDeptUsers(deptName));
+       Dept dept;
+       dept = deptJpaRepo.findByName(deptName);
+       List<User> users = dept.getUsers();
+       System.out.println("00--------------getusers" + deptJpaRepo.findByName(deptName).getUsers());
+       List<User> users2 = deptJpaRepo.findByName(deptName).getUsers();
+       System.out.println("01 ---------------users:" + users2);
+       System.out.println("01 ---------------findDeptUsers:" + responseService.getListResult(users2));
+       return responseService.getListResult(users);
        /*System.out.println("dept:" + deptJpaRepo.findByName(deptName));
        List<User> users = deptJpaRepo.findByName(deptName).getusers();
        users.forEach(usr-> {

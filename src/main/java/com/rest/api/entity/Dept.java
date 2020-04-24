@@ -47,6 +47,10 @@ public class Dept extends CommonDateEntity implements Serializable {
 
     // @JsonIgnore
 
+    public List<User> getUsers() {
+        return users;
+    }
+
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name = "DEPT_USER",
