@@ -66,7 +66,6 @@ public class DeptController {
    // 3-2
     @ApiOperation(value = "부서 정보 조회", notes = "부서 정보를 조회한다.")
     @GetMapping(value = "/{deptName}")
-
    // 3-3
     public SingleResult<Dept> deptGet(@PathVariable String deptName) {
         return responseService.getSingleResult(deptService.findDept(deptName));
@@ -76,15 +75,16 @@ public class DeptController {
    @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-
     @ApiOperation(value = "부서에 속한 사용자 리스트", notes = "부서 사용자 리스트를 조회한다.")
-    @GetMapping(value = "/{deptName}/users")
+   @GetMapping(value = "/{deptName}/users")
+
    public ListResult<User> userlist(@PathVariable String deptName) {
-       Dept dept;
-       dept = deptJpaRepo.findByName(deptName);
+
+       Dept dept = deptJpaRepo.findByDeptname(deptName);
+       System.out.println("0------------dept" + dept);
        List<User> users = dept.getUsers();
-       System.out.println("00--------------getusers" + deptJpaRepo.findByName(deptName).getUsers());
-       List<User> users2 = deptJpaRepo.findByName(deptName).getUsers();
+       System.out.println("00--------------getusers" + deptJpaRepo.findByDeptname(deptName).getUsers());
+       List<User> users2 = deptJpaRepo.findByDeptname(deptName).getUsers();
        System.out.println("01 ---------------users:" + users2);
        System.out.println("01 ---------------findDeptUsers:" + responseService.getListResult(users2));
        return responseService.getListResult(users);

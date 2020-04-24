@@ -1,5 +1,7 @@
 package com.rest.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.api.common.entity.CommonDateEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,14 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 //@AllArgsConstructor
 
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 public class Dept extends CommonDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deptID;
 
-    @Column(name = "name", nullable = false, length = 100)
-    private String name;
+    @Column(name = "deptname", nullable = false, length = 100)
+    private String deptname;
+
 
    /* @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
@@ -45,10 +48,10 @@ public class Dept extends CommonDateEntity implements Serializable {
 
     /*private List<User> user;*/
 
-    // @JsonIgnore
-
-    public List<User> getUsers() {
-        return users;
+    public Dept(Long deptID, String name, List<User> users) {
+        this.deptID = deptID;
+        this.deptname = name;
+        this.users = users;
     }
 
     @ManyToMany(cascade=CascadeType.ALL)
@@ -59,11 +62,10 @@ public class Dept extends CommonDateEntity implements Serializable {
     )
     private List<User> users = new ArrayList<>();
 
+    @JsonIgnore
 
-    public Dept(Long deptID, String name, List<User> users) {
-        this.deptID = deptID;
-        this.name = name;
-        this.users = users;
+    public List<User> getUsers() {
+        return users;
     }
 
     public void setusers(List<User> users) {

@@ -91,13 +91,13 @@ public class UserController {
             @ApiParam(value = "역할", required = true) @RequestParam List<String> rolelist
     ) {
 
-        Optional<Dept> dept = Optional.ofNullable(deptJpaRepo.findByName(deptName));
+        Optional<Dept> dept = Optional.ofNullable(deptJpaRepo.findByDeptname(deptName));
         if (dept.isPresent()) {
             System.out.println("기존 부서가 있음");
         } else {
             System.out.println("기존 부서가 없음");
             deptJpaRepo.save(Dept.builder()
-                    .name(deptName).build());
+                    .deptname(deptName).build());
         }
 
         Optional<Optional<User>> user = Optional.ofNullable(userJpaRepo.findByUid(uid));

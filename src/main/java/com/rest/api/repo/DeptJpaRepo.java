@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DeptJpaRepo extends JpaRepository<Dept, Long> {
   /* List<Dept> findByUidOrderByDeptIdDesc(String uid);*/
-    Dept findByName(String name);
+  Dept findByDeptname(String deptname);
     Dept findByDeptID(long deptID);
     List<Dept> findAllBy();
 

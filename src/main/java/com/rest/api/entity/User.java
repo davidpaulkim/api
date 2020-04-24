@@ -49,8 +49,13 @@ public class User extends CommonDateEntity implements UserDetails {
         this.depts = depts;
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Profile> profiles;
+
+    
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Dept> depts = new ArrayList<>();
+
 
     public User(String id, String name, String password, String deptName, List<String> listrole) {
         System.out.println("USER");

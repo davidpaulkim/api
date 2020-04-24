@@ -39,15 +39,15 @@ public class DeptService {
 
 
     public Dept insertDept(String deptName) {
-        return deptJpaRepo.save(Dept.builder().name(deptName).build());
+        return deptJpaRepo.save(Dept.builder().deptname(deptName).build());
     }
 
     // 부서 이름으로 부서을 조회. 없을경우 CResourceNotExistException 처리
 //    @Cacheable(value = CacheKey.Dept, key = "#deptName", unless = "#result == null")
 
     public Dept findDept(String deptName) {
-        System.out.println("1-----dept:" + deptJpaRepo.findByName(deptName));
-        return Optional.ofNullable(deptJpaRepo.findByName(deptName)).orElseThrow(CResourceNotExistException::new);
+        System.out.println("1-----dept:" + deptJpaRepo.findByDeptname(deptName));
+        return Optional.ofNullable(deptJpaRepo.findByDeptname(deptName)).orElseThrow(CResourceNotExistException::new);
     }
 
     // 부서 이름으로 부서에 속한 User들을 조회. 없을경우 CResourceNotExistException 처리

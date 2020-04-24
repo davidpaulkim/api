@@ -5,6 +5,7 @@ import com.rest.api.common.CUserExistException;
 import com.rest.api.common.CUserNotFoundException;
 import com.rest.api.config.security.JwtTokenProvider;
 import com.rest.api.entity.Dept;
+import com.rest.api.entity.Profile;
 import com.rest.api.entity.User;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.SingleResult;
@@ -103,32 +104,39 @@ public class SignController {
         Dept dept;
         User user;
 
-        Optional<Dept> result = Optional.ofNullable(deptJpaRepo.findByName(deptName));
+        Optional<Dept> result = Optional.ofNullable(deptJpaRepo.findByDeptname(deptName));
         if (result.isPresent()) {
             System.out.println("기존 부서가 있음");
         } else {
             deptJpaRepo.save(Dept.builder()
-                    .name(deptName).build());
+                    .deptname(deptName).build());
         }
 
         user = new User(id, name, password, deptName, listrole);
 
         List<User> users = new ArrayList();
-        users = deptJpaRepo.findByName(deptName).getUsers();
+        users = deptJpaRepo.findByDeptname(deptName).getUsers();
         //System.out.println("user:"+user);
         users.add(user);
-        deptJpaRepo.findByName(deptName).setusers(users);
+        deptJpaRepo.findByDeptname(deptName).setusers(users);
 
-        dept = deptJpaRepo.findByName(deptName);
+        dept = deptJpaRepo.findByDeptname(deptName);
         List<Dept> depts;
         depts = user.getDepts();
         depts.add(dept);
         user.setDepts(depts);
 
         System.out.println("user list" + users);
-        deptJpaRepo.findByName(deptName).setusers(users);
+        deptJpaRepo.findByDeptname(deptName).setusers(users);
         //System.out.println("before save");
         userJpaRepo.save(user);
+
+        Profile profile = new Profile();
+        profile.setUser(user);
+
+
+
+
 
         return responseService.getSuccessResult();
     }
