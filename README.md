@@ -24,7 +24,7 @@
 - 실행
     - Run -> SpringBootApiApplication
 - Swagger
-    - http://localhost:8080/swagger-ui.html
+    - http://localhost:9090/swagger-ui.html
     
 ### 3. DDL
 create table user (
